@@ -1,0 +1,41 @@
+Governed Decision Intelligence (GDI)
+Copyright © 2026 Mark Julius Banasihan
+
+This repository contains the Governed Decision Intelligence (GDI) open specification
+and reference implementation for decision-layer governance of AI systems.
+
+GDI evolved from the RGDS (Regulated Gate Decision Support) framework,
+a biopharma reference implementation developed for IND and BLA submission governance.
+
+Prior art repositories:
+- github.com/mj3b/rgds (biopharma reference implementation, 170+ commits)
+- github.com/mj3b/rgds-ai-governance (AI governance covenants)
+
+GDI is provided as an open specification for research, implementation,
+and extension by the AI governance community.
+
+It does not constitute regulatory advice, compliance guidance, or legal opinion.
+Organizations implementing GDI are solely responsible for ensuring compliance
+with all applicable regulatory requirements in their jurisdictions.
+
+THIRD-PARTY REFERENCES:
+
+This work references published research, regulatory guidance, and governance
+frameworks. All such references remain the property of their respective
+copyright holders and are cited for educational and analytical purposes.
+
+Referenced works include:
+- Herbert Simon: bounded rationality, procedural vs. substantive rationality
+- Gary Klein: Recognition-Primed Decision model
+- Daniel Kahneman: dual-process theory (System 1 / System 2)
+- Gershman, Horvitz, Tenenbaum: computational rationality (Science, 2015)
+- Thomas Icard: Resource Rationality (2023)
+- Andreas Matthias: the responsibility gap (2004)
+- Santoni de Sio and van den Hoven: meaningful human control (2018)
+- Parasuraman and Manzey: automation bias (2010)
+- Dietvorst, Simmons, Massey: algorithm aversion (2015)
+- Oxford Martin School (Simpson, Ortega, Trager): AI governance lessons from aviation and nuclear (2025)
+- NIST AI RMF, ISO/IEC 42001, EU AI Act, AIGN OS, ARAF v3.0, OECD AI Principles
+
+Licensed under the Apache License, Version 2.0.
+See the LICENSE file for details: http://www.apache.org/licenses/LICENSE-2.0
