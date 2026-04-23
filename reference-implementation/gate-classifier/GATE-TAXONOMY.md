@@ -1,6 +1,6 @@
 # Gate Taxonomy: Decision-Level Accountability for Agent Governance
 
-**Author:** Mark Julius (`mj3b`)  
+**Author:** Mark Julius Banasihan (`mj3b`)  
 **Status:** Draft v0.1  
 **Repo:** `mj3b/agent-governance-toolkit` (fork of `microsoft/agent-governance-toolkit`)  
 **License:** Apache 2.0
