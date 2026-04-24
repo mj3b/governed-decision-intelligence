@@ -2,7 +2,7 @@
 
 **Author:** Mark Julius (`mj3b`)  
 **Status:** Draft v0.1  
-**Repo:** `mj3b/agent-governance-toolkit` (fork of `microsoft/agent-governance-toolkit`)  
+**Repo:** `mj3b/governed-decision-intelligence`
 **License:** Apache 2.0
 
 ---
