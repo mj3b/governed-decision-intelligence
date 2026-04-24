@@ -156,9 +156,11 @@ def run_scenarios():
         tool_args=request_1.arguments,
         confidence_score=0.97,
         alternatives_considered=["database_read"],
+        declared_task="retrieve claim file for initial triage review",
         conditions_at_decision={"task": "retrieve_claim_for_review", "claim_id": "CLM-2024-00441"},
     )
     print_record(record_1, "Retrieve claim file for initial review")
+    print(f"  Reconstruction:   {record_1.reasoning_reconstruction[:120]}...")
 
     # ------------------------------------------------------------------
     # Scenario 2: Gate 2 — Documented Delegation
@@ -175,10 +177,13 @@ def run_scenarios():
         tool_args=request_2.arguments,
         confidence_score=0.88,
         alternatives_considered=["database_read", "file_read"],
+        confidence_distribution={"web_search": 0.88, "database_read": 0.72, "file_read": 0.61},
+        declared_task="verify ICD-10 coding for claim CLM-2024-00441 medical necessity",
         conditions_at_decision={"task": "verify_medical_coding", "claim_value": 1200.00},
         delegation_reference="AUTO-APPROVAL-POLICY-v2.3-VP-CLAIMS-2024-01-15",
     )
     print_record(record_2, "Verify medical coding under pre-authorized auto-approval policy")
+    print(f"  Reconstruction:   {record_2.reasoning_reconstruction[:120]}...")
 
     # ------------------------------------------------------------------
     # Scenario 3: Gate 3 — Elevated Review
@@ -199,9 +204,12 @@ def run_scenarios():
         tool_args=request_3.arguments,
         confidence_score=0.85,
         alternatives_considered=["flag_for_manual_review", "request_additional_documentation"],
+        confidence_distribution={"database_write": 0.85, "flag_for_manual_review": 0.72, "request_additional_documentation": 0.61},
+        declared_task="record approved claim decision for CLM-2024-00441 value $1200",
         conditions_at_decision={"task": "record_claim_decision", "claim_value": 1200.00},
     )
     print_record(record_3, "Write claim approval decision to database")
+    print(f"  Reconstruction:   {record_3.reasoning_reconstruction[:120]}...")
 
     # ------------------------------------------------------------------
     # Scenario 4: Gate 4 — Hard Escalation (policy denied by AGT)

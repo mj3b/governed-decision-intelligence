@@ -145,7 +145,7 @@ Both layers are necessary. A governed action without a classified decision produ
 ## Files
 
 - `gate_classifier.py`: Full implementation — GateClassifier, GateRecord, GateClassificationMixin, FileRecordWriter, EscalationRequired
-- `test_gate_classifier.py`: 92-test suite covering all four gates, priority order, integrity, serialization, and mixin integration
+- `test_gate_classifier.py`: 114-test suite covering all four gates, priority order, integrity, serialization, mixin integration, decision context, and reasoning reconstruction
 - `examples/insurance_claims.py`: Worked example across all four gates
 
 ---

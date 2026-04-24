@@ -170,7 +170,7 @@ record = classifier.evaluate(
 # record.record_hash  # SHA-256, written before execution
 ```
 
-92 tests, all passing. Run standalone without AGT installed.
+114 tests, all passing. Run standalone without AGT installed.
 
 ---
 

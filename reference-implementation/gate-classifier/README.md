@@ -62,7 +62,7 @@ Run the test suite:
 
 ```bash
 python test_gate_classifier.py
-# 92 passed, 0 failed
+# 114 passed, 0 failed
 ```
 
 ---
