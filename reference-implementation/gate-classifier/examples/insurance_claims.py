@@ -17,7 +17,7 @@ Run with AGT installed, replace MockPolicyInterceptor with:
         GovernancePolicy, PolicyInterceptor, ExecutionContext, ToolCallRequest
     )
 
-Author: Mark Julius Banasihan (mj3b)
+Author: Mark Julius (mj3b)
 License: Apache 2.0
 """
 
