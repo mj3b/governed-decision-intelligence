@@ -1,8 +1,8 @@
 # Gate Taxonomy: Decision-Level Accountability for Agent Governance
 
-**Author:** Mark Julius Banasihan (`mj3b`)  
+**Author:** Mark Julius (`mj3b`)  
 **Status:** Draft v0.1  
-**Repo:** `mj3b/governed-decision-intelligence`
+**Repo:** `mj3b/governed-decision-intelligence`  
 **License:** Apache 2.0
 
 ---
@@ -142,10 +142,10 @@ Both layers are necessary. A governed action without a classified decision produ
 
 ---
 
-## Next
+## Files
 
-- `gate_classifier.py`: Python implementation wrapping AGT's `PolicyEngine`
-- `gate_record.py`: Immutable artifact schema and writer
+- `gate_classifier.py`: Full implementation — GateClassifier, GateRecord, GateClassificationMixin, FileRecordWriter, EscalationRequired
+- `test_gate_classifier.py`: 92-test suite covering all four gates, priority order, integrity, serialization, and mixin integration
 - `examples/insurance_claims.py`: Worked example across all four gates
 
 ---

@@ -102,6 +102,150 @@ class Gate(str, Enum):
 
 
 # ---------------------------------------------------------------------------
+# Decision context: structured capture of observable inputs
+# ---------------------------------------------------------------------------
+
+@dataclass
+class DecisionContext:
+    """
+    Structured capture of what the governance layer could observe about the
+    agent's decision at classification time.
+
+    Epistemic boundary: this is NOT a claim about the agent's internal state,
+    intentions, or reasoning chain. Those are opaque. This captures what was
+    observable from the governance layer — the surface of the decision that
+    can be inspected without access to model internals.
+
+    The distinction matters for accountability. Claiming to capture "why the
+    model decided" is an epistemic overclaim. Capturing "what the governance
+    layer observed at decision time" is verifiable and defensible.
+    """
+
+    # What the agent was attempting: the tool and its arguments.
+    # This is directly observable — it is what triggered the policy check.
+    intended_action: str          # tool_name, human-readable
+    action_parameters: dict       # tool_args, the specific parameters
+
+    # Task context: what the agent declared it was trying to accomplish.
+    # Provided by the caller from agent state (e.g., LangGraph node context,
+    # LangChain callback metadata). Optional — not all frameworks expose this.
+    declared_task: Optional[str]
+
+    # Confidence distribution: not just the top score, but how confidence
+    # was distributed across alternatives. A decision at 0.51 against five
+    # alternatives is categorically different from 0.97 against one.
+    confidence_score: Optional[float]
+    alternatives_considered: list[str]
+    confidence_distribution: Optional[dict[str, float]]  # {alternative: score}
+
+    # Observable conditions at decision time: agent state, session context,
+    # any structured metadata the caller provides.
+    observable_conditions: dict[str, Any]
+
+
+# ---------------------------------------------------------------------------
+# Plain-language reconstruction generator
+# ---------------------------------------------------------------------------
+
+class ReasoningReconstructor:
+    """
+    Generates a plain-language reconstruction of the governance-relevant
+    decision surface.
+
+    Design principle: reconstruction is deterministic and derived entirely
+    from structured observable inputs. It does not call any model, does not
+    access agent internals, and makes no claims about why the agent chose
+    this action.
+
+    What it produces: a sentence or short paragraph a non-technical reviewer
+    can read to understand what governance decision was made, what triggered
+    it, and what the governance layer could observe at decision time.
+
+    This satisfies the ARAF v3.0 reconstructability requirement: the decision
+    can be reconstructed from contemporaneous governance records without
+    requiring access to model internals or post-hoc inference.
+    """
+
+    @staticmethod
+    def reconstruct(
+        gate: "Gate",
+        gate_rationale: str,
+        decision_context: DecisionContext,
+        policy_allowed: bool,
+        escalation_trigger: Optional[str],
+        delegation_reference: Optional[str],
+    ) -> str:
+        """
+        Produce a plain-language reconstruction from observable structured fields.
+        Deterministic: same inputs always produce equivalent output.
+        """
+        parts = []
+
+        # What was attempted
+        if decision_context.declared_task:
+            parts.append(
+                f"Agent attempted '{decision_context.intended_action}' "
+                f"as part of task: {decision_context.declared_task}."
+            )
+        else:
+            parts.append(
+                f"Agent attempted '{decision_context.intended_action}'."
+            )
+
+        # Policy result
+        if policy_allowed:
+            parts.append("AGT policy engine: allowed.")
+        else:
+            parts.append("AGT policy engine: denied.")
+
+        # Confidence state
+        if decision_context.confidence_score is not None:
+            score_pct = int(decision_context.confidence_score * 100)
+            n_alts = len(decision_context.alternatives_considered)
+            if n_alts > 0:
+                parts.append(
+                    f"Confidence: {score_pct}% against "
+                    f"{n_alts} alternative(s) considered "
+                    f"({', '.join(decision_context.alternatives_considered)})."
+                )
+            else:
+                parts.append(f"Confidence: {score_pct}%.")
+        else:
+            parts.append("Confidence: not provided.")
+
+        # Gate classification and what triggered it
+        gate_labels = {
+            "gate_1_routine": "Gate 1 (Routine Execution)",
+            "gate_2_documented_delegation": "Gate 2 (Documented Delegation)",
+            "gate_3_elevated_review": "Gate 3 (Elevated Review)",
+            "gate_4_hard_escalation": "Gate 4 (Hard Escalation)",
+        }
+        gate_label = gate_labels.get(gate.value, gate.value)
+        parts.append(f"Gate classification: {gate_label}. {gate_rationale}")
+
+        # Escalation or delegation specifics
+        if escalation_trigger:
+            trigger_labels = {
+                "policy_denied": "Trigger: policy enforcement.",
+                "hard_escalation_tool_class": "Trigger: tool class institutionally requires hard escalation.",
+                "confidence_below_escalation_threshold": "Trigger: confidence below escalation threshold.",
+            }
+            parts.append(trigger_labels.get(escalation_trigger, f"Trigger: {escalation_trigger}."))
+
+        if delegation_reference:
+            parts.append(f"Delegation authority: {delegation_reference}.")
+
+        # Observable conditions if present
+        if decision_context.observable_conditions:
+            condition_summary = ", ".join(
+                f"{k}={v}" for k, v in list(decision_context.observable_conditions.items())[:3]
+            )
+            parts.append(f"Observable conditions at decision time: {condition_summary}.")
+
+        return " ".join(parts)
+
+
+# ---------------------------------------------------------------------------
 # Gate record: the accountability artifact
 # ---------------------------------------------------------------------------
 
@@ -132,11 +276,25 @@ class GateRecord:
     gate: Gate
     gate_rationale: str
 
-    # Decision context
+    # Decision context: structured capture of observable inputs at decision time.
+    # Not a claim about internal model state — a record of what was observable
+    # from the governance layer at the moment of classification.
+    decision_context: "DecisionContext"
+
+    # Confidence state
     confidence_score: Optional[float]       # 0.0-1.0, None if not provided
     policy_confidence_threshold: float      # From GovernancePolicy.confidence_threshold
     alternatives_considered: list[str]
     conditions_at_decision: dict[str, Any]
+
+    # Plain-language reconstruction: a deterministic summary of observable
+    # governance-relevant inputs rendered in human-readable form at
+    # classification time. Generated from structured fields only — not from
+    # the model being governed. This is not a claim about why the model chose
+    # this action. It is a human-readable account of what the governance layer
+    # observed. A non-technical reviewer can read this and understand what
+    # governance decision was made and why.
+    reasoning_reconstruction: str
 
     # Escalation
     escalation_required: bool
@@ -289,8 +447,10 @@ class GateClassifier:
         tool_args: Optional[dict[str, Any]] = None,
         confidence_score: Optional[float] = None,
         alternatives_considered: Optional[list[str]] = None,
+        confidence_distribution: Optional[dict[str, float]] = None,
         conditions_at_decision: Optional[dict[str, Any]] = None,
         delegation_reference: Optional[str] = None,
+        declared_task: Optional[str] = None,
     ) -> GateRecord:
         """
         Classify the governance gate for a decision after AGT's policy
@@ -299,6 +459,14 @@ class GateClassifier:
         Called AFTER pre_execute() returns but BEFORE the action executes.
         The record is written before execution. The caller is responsible
         for halting execution if escalation_required is True.
+
+        New parameters:
+            declared_task: what the agent declared it was trying to accomplish.
+                Provided from agent state if available (LangGraph node context,
+                LangChain metadata, etc.). Optional — not all frameworks expose this.
+            confidence_distribution: confidence scores across alternatives considered,
+                as {alternative_name: score}. Distinguishes a 0.51 decision against
+                five alternatives from a 0.97 decision against one.
         """
         gate, rationale, escalation_trigger = self._classify(
             tool_name=tool_name,
@@ -309,6 +477,28 @@ class GateClassifier:
 
         escalation_required = gate == Gate.HARD_ESCALATION
 
+        # Build structured decision context from observable inputs
+        decision_context = DecisionContext(
+            intended_action=tool_name,
+            action_parameters=tool_args or {},
+            declared_task=declared_task,
+            confidence_score=confidence_score,
+            alternatives_considered=alternatives_considered or [],
+            confidence_distribution=confidence_distribution,
+            observable_conditions=conditions_at_decision or {},
+        )
+
+        # Generate plain-language reconstruction from structured fields only.
+        # Deterministic. No model call. No access to agent internals.
+        reasoning_reconstruction = ReasoningReconstructor.reconstruct(
+            gate=gate,
+            gate_rationale=rationale,
+            decision_context=decision_context,
+            policy_allowed=policy_allowed,
+            escalation_trigger=escalation_trigger,
+            delegation_reference=delegation_reference,
+        )
+
         record = GateRecord(
             record_id=str(uuid.uuid4()),
             agent_id=agent_id,
@@ -318,10 +508,12 @@ class GateClassifier:
             policy_reason=policy_reason,
             gate=gate,
             gate_rationale=rationale,
+            decision_context=decision_context,
             confidence_score=confidence_score,
             policy_confidence_threshold=policy_confidence_threshold,
             alternatives_considered=alternatives_considered or [],
             conditions_at_decision=conditions_at_decision or {},
+            reasoning_reconstruction=reasoning_reconstruction,
             escalation_required=escalation_required,
             escalation_trigger=escalation_trigger,
             delegation_reference=delegation_reference,
@@ -476,9 +668,11 @@ class GateClassificationMixin:
         tool_args: Optional[dict] = None,
         confidence_score: Optional[float] = None,
         alternatives_considered: Optional[list[str]] = None,
+        confidence_distribution: Optional[dict[str, float]] = None,
         conditions_at_decision: Optional[dict] = None,
         delegation_reference: Optional[str] = None,
         policy_reason: Optional[str] = None,
+        declared_task: Optional[str] = None,
     ) -> GateRecord:
         """Classify gate after pre_execute() returns, using policy from ctx."""
         policy = getattr(ctx, "policy", None)
@@ -493,8 +687,10 @@ class GateClassificationMixin:
             tool_args=tool_args,
             confidence_score=confidence_score,
             alternatives_considered=alternatives_considered,
+            confidence_distribution=confidence_distribution,
             conditions_at_decision=conditions_at_decision,
             delegation_reference=delegation_reference,
+            declared_task=declared_task,
         )
 
         self._last_gate_record = record

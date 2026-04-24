@@ -427,6 +427,125 @@ test("Custom rule: 0.55 < 0.60 escalation threshold → Gate 4",
 
 
 # ---------------------------------------------------------------------------
+# 13. DecisionContext
+# ---------------------------------------------------------------------------
+section("DecisionContext")
+
+r = evaluate(c, "file_read", policy_allowed=True, confidence_score=0.90)
+test("GateRecord has decision_context", hasattr(r, "decision_context"))
+test("decision_context.intended_action is tool_name", r.decision_context.intended_action == "file_read")
+test("decision_context.confidence_score matches", r.decision_context.confidence_score == 0.90)
+test("decision_context.declared_task is None when not provided", r.decision_context.declared_task is None)
+test("decision_context.confidence_distribution is None when not provided",
+     r.decision_context.confidence_distribution is None)
+
+# With declared_task
+r2 = c.evaluate(
+    policy_allowed=True,
+    policy_confidence_threshold=0.8,
+    agent_id="test-agent",
+    tool_name="web_search",
+    tool_args={"query": "ICD-10 codes"},
+    confidence_score=0.88,
+    alternatives_considered=["database_read", "file_read"],
+    confidence_distribution={"web_search": 0.88, "database_read": 0.72, "file_read": 0.61},
+    declared_task="verify medical coding for claim CLM-2024-00441",
+    conditions_at_decision={"claim_value": 1200.00},
+)
+test("declared_task captured", r2.decision_context.declared_task == "verify medical coding for claim CLM-2024-00441")
+test("confidence_distribution captured", r2.decision_context.confidence_distribution is not None)
+test("confidence_distribution has three entries", len(r2.decision_context.confidence_distribution) == 3)
+test("alternatives_considered captured in context", len(r2.decision_context.alternatives_considered) == 2)
+test("observable_conditions captured", r2.decision_context.observable_conditions.get("claim_value") == 1200.00)
+
+
+# ---------------------------------------------------------------------------
+# 14. Reasoning reconstruction
+# ---------------------------------------------------------------------------
+section("Reasoning Reconstruction")
+
+# Basic reconstruction present
+r = evaluate(c, "file_read", policy_allowed=True, confidence_score=0.90)
+test("reasoning_reconstruction is non-empty string",
+     isinstance(r.reasoning_reconstruction, str) and len(r.reasoning_reconstruction) > 20)
+test("reconstruction contains tool name", "file_read" in r.reasoning_reconstruction)
+test("reconstruction contains policy result", "allowed" in r.reasoning_reconstruction.lower())
+test("reconstruction contains gate classification", "Gate 1" in r.reasoning_reconstruction)
+
+# Gate 4 reconstruction contains escalation trigger
+r_g4 = evaluate(c, "shell_exec", policy_allowed=True)
+test("Gate 4 reconstruction mentions escalation", "Gate 4" in r_g4.reasoning_reconstruction)
+test("Gate 4 reconstruction mentions trigger", "Trigger" in r_g4.reasoning_reconstruction)
+
+# Policy denied reconstruction
+r_denied = evaluate(c, "file_read", policy_allowed=False, policy_reason="blocked")
+test("Denied reconstruction mentions policy denied", "denied" in r_denied.reasoning_reconstruction.lower())
+
+# Reconstruction with declared_task includes task
+r_task = c.evaluate(
+    policy_allowed=True,
+    policy_confidence_threshold=0.8,
+    agent_id="test-agent",
+    tool_name="database_write",
+    tool_args={"table": "claims"},
+    confidence_score=0.85,
+    declared_task="record claim approval decision",
+)
+test("Reconstruction includes declared_task", "record claim approval decision" in r_task.reasoning_reconstruction)
+
+# Reconstruction with alternatives includes count
+r_alts = c.evaluate(
+    policy_allowed=True,
+    policy_confidence_threshold=0.8,
+    agent_id="test-agent",
+    tool_name="file_read",
+    tool_args={},
+    confidence_score=0.88,
+    alternatives_considered=["database_read", "api_call", "cache_lookup"],
+)
+test("Reconstruction mentions alternatives count", "3 alternative" in r_alts.reasoning_reconstruction)
+
+# Gate 2 reconstruction includes delegation reference
+r_del = c.evaluate(
+    policy_allowed=True,
+    policy_confidence_threshold=0.8,
+    agent_id="test-agent",
+    tool_name="file_read",
+    tool_args={},
+    confidence_score=0.92,
+    delegation_reference="AUTO-APPROVAL-POLICY-v2.3",
+)
+test("Gate 2 reconstruction includes delegation reference",
+     "AUTO-APPROVAL-POLICY-v2.3" in r_del.reasoning_reconstruction)
+
+# Reconstruction is deterministic: same inputs, same output
+r_a = c.evaluate(
+    policy_allowed=True,
+    policy_confidence_threshold=0.8,
+    agent_id="test-agent",
+    tool_name="file_read",
+    tool_args={"path": "/test"},
+    confidence_score=0.90,
+    declared_task="read test file",
+)
+r_b = c.evaluate(
+    policy_allowed=True,
+    policy_confidence_threshold=0.8,
+    agent_id="test-agent",
+    tool_name="file_read",
+    tool_args={"path": "/test"},
+    confidence_score=0.90,
+    declared_task="read test file",
+)
+# Record IDs will differ (UUID) but reconstructions should be identical
+test("Reconstruction is deterministic for identical inputs",
+     r_a.reasoning_reconstruction == r_b.reasoning_reconstruction)
+
+# Reconstruction does not appear in hash (mutable presentation layer)
+# but record_hash still covers core immutable fields
+test("Integrity still valid after reconstruction added", r_task.verify_integrity())
+
+# ---------------------------------------------------------------------------
 # Summary
 # ---------------------------------------------------------------------------
 print(f"\n{'='*60}")
