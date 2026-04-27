@@ -1,0 +1,73 @@
+{
+  "algorithm": "ed25519",
+  "issued_at": "2026-04-27T13:09:19Z",
+  "issuer": "gdi:governed-decision-intelligence",
+  "kid": "SmczC4A9XIh1evuTKGFTRA",
+  "parent_receipt_hash": "sha256:39b8a0fdce1c3d40e1f0297aebbd90b65fc8f19474272d64b15dbbe2d30c3d9e",
+  "payload": {
+    "action": {
+      "kind": "Bash",
+      "target": "testvectors-session-001"
+    },
+    "decision": "deny",
+    "gdr": {
+      "accountability_chain": [
+        {
+          "identity": "session:testvectors-session-001",
+          "responsibility": "policy_evaluation",
+          "role": "agent_runtime"
+        },
+        {
+          "identity": "human:operator",
+          "responsibility": "threshold_approval",
+          "role": "governance_owner"
+        }
+      ],
+      "confidence_score": 0.15,
+      "decision": "deny",
+      "evidence_sources": [
+        {
+          "completeness": "complete",
+          "fields_present": [
+            "command"
+          ],
+          "source": "tool_input"
+        },
+        {
+          "completeness": "complete",
+          "fields_present": [
+            "command_pattern"
+          ],
+          "source": "context"
+        }
+      ],
+      "gate_classification": "blocked",
+      "gdr_timestamp": "2026-04-27T13:09:19Z",
+      "gdr_version": "2.0",
+      "policy_id": "autoresearch-safe",
+      "reasoning_reconstruction": "Bash evaluated against autoresearch-safe. Gate: blocked. Confidence 0.15 below threshold or forbid matched. Action blocked.",
+      "sequence": 3,
+      "session_id": "testvectors-session-001",
+      "tool_input": {
+        "command": "rm -rf /"
+      },
+      "tool_name": "Bash"
+    },
+    "params_hash": "sha256:2f3b94579f43fb59e8df8ecf8d8a231a288b641d262c4c425043c107e8e72b82",
+    "policy_digest": "sha256:a5a2bbc76844fee5d737edf5a1aac83aaf5759ecd205db9c61c8bf5a30c36175",
+    "policy_id": "autoresearch-safe",
+    "prev_hash": "sha256:39b8a0fdce1c3d40e1f0297aebbd90b65fc8f19474272d64b15dbbe2d30c3d9e",
+    "reason_code": "policy_deny",
+    "sequence": 3,
+    "session_id": "testvectors-session-001",
+    "tier": "evidenced",
+    "timestamp": "2026-04-27T13:09:19Z",
+    "tool": "Bash",
+    "type": "scopeblind.receipt.v2"
+  },
+  "pubkey": "4cb5abf6ad79fbf5abbccafcc269d85cd2651ed4b885b5869f241aedf0a5ba29",
+  "sequence": 3,
+  "type": "decision_receipt",
+  "v": 2,
+  "signature": "08e7077190ef0751e44eb7c7dc1e04069774f6cc7e72d935c55e838c3bb1c7a53ec185c76e6b35f65b6fcca1d749b84fce185bfe846a24fb042b9c454a861709"
+}
