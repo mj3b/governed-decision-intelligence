@@ -80,3 +80,9 @@ Gate classification is captured in the `gate_classification` object of the GDR:
 ```
 
 See: [../schema/gdr.schema.json](../schema/gdr.schema.json)
+
+---
+
+*For the implementation spec covering AGT insertion point, classification logic,
+and test coverage, see:
+[../reference-implementation/gate-classifier/GATE-TAXONOMY.md](../reference-implementation/gate-classifier/GATE-TAXONOMY.md)*
