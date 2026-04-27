@@ -92,19 +92,31 @@ GDI does not compete with existing governance frameworks. It completes them.
 ## Repository Structure
 
 ```
+## Repository Structure
+
 governed-decision-intelligence/
 ├── spec/
-│   └── GDI_v2_The_Decision_Architecture_for_Governed_AI.pdf   ← Core specification
+│   └── GDI_v3_The_Decision_Architecture_for_Governed_AI.pdf   ← Core specification
 ├── schema/
 │   ├── gdr.schema.json        ← Governed Decision Record JSON Schema
-│   └── gdr.schema.yaml        ← YAML companion for readability
+│   ├── gdr.schema.yaml        ← YAML companion for readability
+│   └── gdr.example.json       ← Fully populated example, schema-validated
 ├── reference-implementation/
 │   └── gate-classifier/       ← Gate classification layer for Microsoft AGT
 │       ├── gate_classifier.py
 │       ├── GATE-TAXONOMY.md
 │       └── examples/
 │           └── insurance_claims.py
+├── examples/
+│   ├── insurance-claims/
+│   │   └── README.md          ← Four-gate walkthrough: threshold cleared and escalation fired
+│   └── testvectors-interop/
+│       ├── gdi_driver.py      ← Conformance driver for draft-farley-acta-signed-receipts
+│       ├── run.sh
+│       └── sample-receipts/
+│           └── 003-deny-bash-destructive.json   ← Blocked decision, GDR sealed before execution
 ├── docs/
+│   ├── bilateral-pattern.md   ← Pre/post-execution receipt chaining for regulated deployments
 │   ├── confidence-threshold-model.md
 │   ├── gate-taxonomy.md
 │   └── framework-compatibility.md
