@@ -215,5 +215,5 @@ integration examples, framework compatibility analysis.
 
 ---
 
-*Mark Julius Banasihan | Apache 2.0 Licensed | March 2026*
+*Mark Julius Banasihan | Apache 2.0 Licensed | April 2026*
 *github.com/mj3b | [mj3b/rgds](https://github.com/mj3b/rgds) | [mj3b/rgds-ai-governance](https://github.com/mj3b/rgds-ai-governance)*
