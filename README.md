@@ -174,6 +174,36 @@ record = classifier.evaluate(
 
 ---
 
+## Interoperability: Veritas Acta Receipt Standard
+
+GDI is the 5th conforming implementation in
+[ScopeBlind/agent-governance-testvectors](https://github.com/ScopeBlind/agent-governance-testvectors),
+the cross-implementation conformance repo for
+[`draft-farley-acta-signed-receipts`](https://datatracker.ietf.org/doc/draft-farley-acta-signed-receipts/)
+(IETF). Other implementations: TypeScript (`protect-mcp`), Python (`protect-mcp-adk`),
+Rust (`sb-runtime`), and the APS governance hook.
+
+The GDI driver embeds a full GDR in the receipt's signed payload before execution:
+
+```json
+result_hash = sha256(JCS(GDR))
+
+```
+
+The receipt seals pre-decision reasoning state — confidence score, gate
+classification, reasoning reconstruction, evidence completeness, accountability
+chain — as a cryptographically verifiable artifact. Third parties verify receipt
+integrity offline with `@veritasacta/verify`. Auditors read GDR fields from the
+attested payload.
+
+All three conformance checks pass: schema validation, Ed25519 signature
+verification, and hash-chain integrity.
+
+**Conformance driver:** [`ScopeBlind/agent-governance-testvectors#7`](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7)
+**Discussion:** [`microsoft/agent-governance-toolkit#276`](https://github.com/microsoft/agent-governance-toolkit/discussions/276)
+
+---
+
 ## Status
 
 GDI v2.0 is a published open specification. The schema and reference implementation are in active development.
