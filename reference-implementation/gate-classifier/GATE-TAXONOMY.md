@@ -151,3 +151,9 @@ Both layers are necessary. A governed action without a classified decision produ
 ---
 
 *This specification is part of ongoing research into decision-layer governance for agentic AI systems. It draws on Bovens' accountability theory, the ARAF v3.0 reconstructability principle, and the author's prior work on Regulated Gate Decision Support (RGDS).*
+
+---
+
+*For the specification-level document covering the five decision outcomes,
+gate-to-confidence-zone mapping, and GDR schema fields, see:
+[../../docs/gate-taxonomy.md](../../docs/gate-taxonomy.md)*
