@@ -4,7 +4,7 @@
 <!-- GDI governance signals -->
 [![Status: Open Specification](https://img.shields.io/badge/status-open%20specification-5b6cff)](#specification)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v2.0-blue)](#specification)
+[![Version](https://img.shields.io/badge/version-v2.1-blue)](#specification)
 [![Framework Agnostic](https://img.shields.io/badge/framework-agnostic-orange)](#framework-compatibility)
 [![Prior Art](https://img.shields.io/badge/prior%20art-RGDS%20170%2B%20commits-purple)](https://github.com/mj3b/rgds)
 
@@ -206,9 +206,12 @@ verification, and hash-chain integrity.
 
 ## Status
 
-GDI v2.0 is a published open specification. The schema and reference implementation are in active development.
+GDI v2.1 is a published open specification. The schema, reference implementation,
+and conformance driver are in active development. GDI is the 5th conforming
+implementation of `draft-farley-acta-signed-receipts` (IETF).
 
-**Contributions welcome:** vertical module proposals, schema extensions, integration examples, framework compatibility analysis.
+**Contributions welcome:** vertical module proposals, schema extensions,
+integration examples, framework compatibility analysis.
 
 ---
 
