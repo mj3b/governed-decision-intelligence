@@ -113,16 +113,19 @@ governed-decision-intelligence/
 │   └── testvectors-interop/
 │       ├── gdi_driver.py      ← Conformance driver for draft-farley-acta-signed-receipts
 │       ├── run.sh
+│       ├── README.md
 │       └── sample-receipts/
 │           └── 003-deny-bash-destructive.json   ← Blocked decision, GDR sealed before execution
 ├── docs/
 │   ├── bilateral-pattern.md   ← Pre/post-execution receipt chaining for regulated deployments
 │   ├── confidence-threshold-model.md
-│   ├── gate-taxonomy.md
-│   └── framework-compatibility.md
-└── .github/
-    └── workflows/
-        └── validate.yml
+│   ├── framework-compatibility.md
+│   └── gate-taxonomy.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+└── NOTICE
+
 ```
 
 ---
