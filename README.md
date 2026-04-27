@@ -104,7 +104,10 @@ governed-decision-intelligence/
 ├── reference-implementation/
 │   └── gate-classifier/       ← Gate classification layer for Microsoft AGT
 │       ├── gate_classifier.py
+│       ├── gate-classifier-README.md
 │       ├── GATE-TAXONOMY.md
+│       ├── README.md
+│       ├── test_gate_classifier.py
 │       └── examples/
 │           └── insurance_claims.py
 ├── examples/
