@@ -25,7 +25,7 @@ jobs:
 
       - name: Validate gdr.example.json against gdr.schema.json
         run: |
-          python3 - <<'EOF'
+          python3 - <<'PYEOF'
           import json
           import jsonschema
 
@@ -36,7 +36,7 @@ jobs:
 
           jsonschema.validate(instance=example, schema=schema)
           print("✓ gdr.example.json validates against gdr.schema.json")
-          EOF
+          PYEOF
 
   test-gate-classifier:
     name: Gate Classifier Tests
@@ -50,12 +50,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install pytest
-        run: pip install pytest
-
       - name: Run gate classifier tests
         working-directory: reference-implementation/gate-classifier
-        run: python -m pytest test_gate_classifier.py -v
+        run: |
+          python test_gate_classifier.py
+          echo "✓ Gate classifier tests passed"
 
   interop-check:
     name: Interoperability Driver Check
