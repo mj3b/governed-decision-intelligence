@@ -3,7 +3,8 @@
 
 [![Status: Open Specification](https://img.shields.io/badge/status-open%20specification-5b6cff)](#specification)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v2.1-blue)](#specification)
+[![Version](https://img.shields.io/badge/version-v3.0-blue)](#specification)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20244601-blue)](https://doi.org/10.5281/zenodo.20244601)
 [![Framework Agnostic](https://img.shields.io/badge/framework-agnostic-orange)](#framework-compatibility)
 [![Prior Art](https://img.shields.io/badge/prior%20art-RGDS%20170%2B%20commits-purple)](https://github.com/mj3b/rgds)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0001--8121--2878-brightgreen)](https://orcid.org/0009-0001-8121-2878)
@@ -204,11 +205,12 @@ Five structural reasons the decision layer is absent from current governance inf
 ```bibtex
 @software{banasihan2026gdi,
   author    = {Banasihan, Mark Julius},
-  title     = {{GDI}: Governed Decision Intelligence — The Decision Architecture for Governed {AI}},
+  title     = {{GDI} v3: The Decision Architecture for Governed {AI}},
   year      = {2026},
   month     = {4},
-  version   = {2.1},
-  url       = {https://github.com/mj3b/governed-decision-intelligence},
+  version   = {3.0},
+  doi       = {10.5281/zenodo.20244601},
+  url       = {https://doi.org/10.5281/zenodo.20244601},
   license   = {Apache-2.0}
 }
 ```

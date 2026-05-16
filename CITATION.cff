@@ -22,9 +22,10 @@ authors:
     city: Atlanta
     region: Georgia
     country: US
-version: "2.1"
+version: "3.0"
 date-released: "2026-04-01"
 license: Apache-2.0
+doi: 10.5281/zenodo.20244601
 repository-code: https://github.com/mj3b/governed-decision-intelligence
 keywords:
   - AI governance
