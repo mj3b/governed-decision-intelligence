@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/mj3b/governed-decision-intelligence/blob/main/schema/gdr.schema.json",
   "title": "Governed Decision Record (GDR)",
-  "description": "Schema-validated artifact capturing a single consequential AI-informed decision at the point where a prediction becomes a human-authorized action. The GDR is written before execution. An artifact written after the fact is a narrative. An artifact written before execution is evidence. Part of the Governed Decision Intelligence (GDI) specification v2.0.",
+  "description": "Schema-validated artifact capturing a single consequential AI-informed decision at the point where a prediction becomes a human-authorized action. The GDR is written before execution. An artifact written after the fact is a narrative. An artifact written before execution is evidence. Part of the Governed Decision Intelligence (GDI) specification v3.0.",
   "type": "object",
   "additionalProperties": false,
   "required": [
