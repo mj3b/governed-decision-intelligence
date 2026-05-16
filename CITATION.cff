@@ -1,0 +1,60 @@
+cff-version: 1.2.0
+message: >
+  If you reference this work in research, publications, or implementations,
+  please cite it using the metadata below.
+type: software
+title: "GDI: Governed Decision Intelligence — The Decision Architecture for Governed AI"
+abstract: >
+  An open specification defining the decision layer of AI governance: the Governed
+  Decision Record (GDR), Confidence Threshold Model, Gate Taxonomy, and CI/CD
+  Governance Integration pattern. GDI sits between the AI inference layer and
+  organizational governance frameworks, providing the implementation artifact that
+  turns framework requirements into governed system behavior at the point where
+  AI predictions become consequential actions. Includes a working Python reference
+  implementation extending Microsoft's Agent Governance Toolkit, and is the 5th
+  conforming implementation of draft-farley-acta-signed-receipts (IETF).
+authors:
+  - family-names: Banasihan
+    given-names: Mark Julius
+    orcid: https://orcid.org/0009-0001-8121-2878
+    email: markjuliusbanasihan@gmail.com
+    affiliation: Independent Researcher
+    city: Atlanta
+    region: Georgia
+    country: US
+version: "2.1"
+date-released: "2026-04-01"
+license: Apache-2.0
+repository-code: https://github.com/mj3b/governed-decision-intelligence
+keywords:
+  - AI governance
+  - decision governance
+  - governed decision record
+  - agent governance
+  - accountability
+  - AI accountability
+  - human oversight
+  - NIST AI RMF
+  - ISO 42001
+  - EU AI Act
+  - schema validation
+  - gate taxonomy
+  - confidence threshold
+  - decision architecture
+  - responsible AI
+references:
+  - type: software
+    title: "RGDS: Regulated Gate Decision Support — Decision-Centric AI Governance in Biopharma/Biotech Development"
+    authors:
+      - family-names: Banasihan
+        given-names: Mark Julius
+    repository-code: https://github.com/mj3b/rgds-independent-study
+    doi: 10.5281/zenodo.20242004
+    license: Apache-2.0
+  - type: software
+    title: "RGDS Core Framework — Decision Log Schemas and Governance Covenants"
+    authors:
+      - family-names: Banasihan
+        given-names: Mark Julius
+    repository-code: https://github.com/mj3b/rgds
+    license: Apache-2.0
