@@ -2,10 +2,8 @@
 
 This directory contains the GDI conformance driver for [`ScopeBlind/agent-governance-testvectors`](https://github.com/ScopeBlind/agent-governance-testvectors), the cross-implementation conformance repository for [`draft-farley-acta-signed-receipts`](https://datatracker.ietf.org/doc/draft-farley-acta-signed-receipts/) (IETF).
 
-GDI is the 5th conforming implementation. Other implementations: TypeScript (`protect-mcp`), Python (`protect-mcp-adk`), Rust (`sb-runtime`), and the APS governance hook.
-
-**Conformance PR:** [ScopeBlind/agent-governance-testvectors#7](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7)
-**AGT Discussion:** [microsoft/agent-governance-toolkit#276](https://github.com/microsoft/agent-governance-toolkit/discussions/276)
+**Conformance PR (pending review):** [ScopeBlind/agent-governance-testvectors#7](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7)
+**AGT discussion (open):** [microsoft/agent-governance-toolkit#276](https://github.com/microsoft/agent-governance-toolkit/discussions/276)
 
 ---
 
