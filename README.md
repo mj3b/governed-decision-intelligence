@@ -109,7 +109,7 @@ record = classifier.evaluate(
 
 ## Interoperability: Veritas Acta Receipt Standard
 
-GDI is the 5th conforming implementation in [ScopeBlind/agent-governance-testvectors](https://github.com/ScopeBlind/agent-governance-testvectors), the cross-implementation conformance repo for [`draft-farley-acta-signed-receipts`](https://datatracker.ietf.org/doc/draft-farley-acta-signed-receipts/) (IETF). Other implementations: TypeScript (`protect-mcp`), Python (`protect-mcp-adk`), Rust (`sb-runtime`), and the APS governance hook.
+GDI has submitted a conformance driver to [ScopeBlind/agent-governance-testvectors](https://github.com/ScopeBlind/agent-governance-testvectors), the cross-implementation conformance repository for [`draft-farley-acta-signed-receipts`](https://datatracker.ietf.org/doc/draft-farley-acta-signed-receipts/) (IETF). Other implementations in the suite: TypeScript (`protect-mcp`), Python (`protect-mcp-adk`), Rust (`sb-runtime`), and the APS governance hook.
 
 The GDI driver embeds a full GDR in the receipt's signed payload before execution:
 
@@ -117,10 +117,10 @@ The GDI driver embeds a full GDR in the receipt's signed payload before executio
 result_hash = sha256(JCS(GDR))
 ```
 
-All three conformance checks pass: schema validation, Ed25519 signature verification, and hash-chain integrity.
+All three conformance checks pass against the local suite: schema validation, Ed25519 signature verification, and hash-chain integrity.
 
-**Conformance PR:** [`ScopeBlind/agent-governance-testvectors#7`](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7)
-**Discussion:** [`microsoft/agent-governance-toolkit#276`](https://github.com/microsoft/agent-governance-toolkit/discussions/276)
+**Conformance PR (pending review):** [`ScopeBlind/agent-governance-testvectors#7`](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7)
+**AGT discussion (open):** [`microsoft/agent-governance-toolkit#276`](https://github.com/microsoft/agent-governance-toolkit/discussions/276)
 
 ---
 
