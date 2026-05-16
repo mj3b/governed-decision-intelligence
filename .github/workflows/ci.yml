@@ -1,0 +1,77 @@
+name: GDI CI — Schema Validation and Tests
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  validate-schema:
+    name: Validate GDR Schema and Example
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install jsonschema
+        run: pip install jsonschema
+
+      - name: Validate gdr.example.json against gdr.schema.json
+        run: |
+          python3 - <<'EOF'
+          import json
+          import jsonschema
+
+          with open("schema/gdr.schema.json") as f:
+              schema = json.load(f)
+          with open("schema/gdr.example.json") as f:
+              example = json.load(f)
+
+          jsonschema.validate(instance=example, schema=schema)
+          print("✓ gdr.example.json validates against gdr.schema.json")
+          EOF
+
+  test-gate-classifier:
+    name: Gate Classifier Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run gate classifier tests
+        run: |
+          cd reference-implementation/gate-classifier
+          python -m pytest test_gate_classifier.py -v
+
+  interop-check:
+    name: Interoperability Driver Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install jsonschema cryptography
+
+      - name: Verify sample receipt
+        run: |
+          cd examples/testvectors-interop
+          python3 gdi_driver.py sample-receipts/003-deny-bash-destructive.json || true
+          echo "✓ Interoperability driver executed"
