@@ -50,10 +50,12 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install pytest
+        run: pip install pytest
+
       - name: Run gate classifier tests
-        run: |
-          cd reference-implementation/gate-classifier
-          python -m pytest test_gate_classifier.py -v
+        working-directory: reference-implementation/gate-classifier
+        run: python -m pytest test_gate_classifier.py -v
 
   interop-check:
     name: Interoperability Driver Check
@@ -70,8 +72,8 @@ jobs:
       - name: Install dependencies
         run: pip install jsonschema cryptography
 
-      - name: Verify sample receipt
+      - name: Verify interop driver runs
+        working-directory: examples/testvectors-interop
         run: |
-          cd examples/testvectors-interop
-          python3 gdi_driver.py sample-receipts/003-deny-bash-destructive.json || true
+          python3 gdi_driver.py || true
           echo "✓ Interoperability driver executed"
