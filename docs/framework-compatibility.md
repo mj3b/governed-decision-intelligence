@@ -1,16 +1,8 @@
 # GDI Framework Compatibility
 
-GDI does not compete with existing AI governance frameworks. It completes them.
+GDI occupies a layer no existing governance framework fills. NIST AI RMF, ISO 42001, EU AI Act, and peer frameworks define what organizations should govern, what policies should exist, and what processes should be in place. None defines what a governed decision record contains or how it works at the moment a prediction becomes a consequential action.
 
-The following mappings show how GDI's Governed Decision Records satisfy specific requirements of the major frameworks in production today. Organizations can adopt GDI alongside any combination of governance frameworks without conflict.
-
----
-
-## Compatibility Principle
-
-GDI is the decision-architecture layer that sits inside any governance framework. It is the implementation artifact that turns framework requirements into governed system behavior.
-
-Organizations adopting GDI do not need to choose between frameworks. They need to implement the decision layer that makes their chosen framework enforceable at the point where AI predictions become consequential actions.
+GDI is the implementation artifact that turns framework requirements into governed system behavior. Organizations adopting GDI do not choose between frameworks — they add the decision layer that makes their chosen framework enforceable at execution time.
 
 ---
 
@@ -31,7 +23,7 @@ Organizations adopting GDI do not need to choose between frameworks. They need t
 
 | Requirement | GDI Implementation |
 |------------|-------------------|
-| Risk management for AI systems | GDR risk posture and residual risk fields. Explicit risk acceptance required field. |
+| Risk management for AI systems | GDR risk posture and residual risk fields. Explicit risk acceptance is a required field. |
 | Documented evidence of governance processes | Schema validation provides process evidence. Every GDR is machine-readable proof of governance execution. |
 | Control A.6.2.8 event logs | GDRs are the event logs. Written before execution. Immutable after. SHA-256 integrity verification. |
 | Human oversight requirements | Accountability chain requires named humans. Gate 3 and Gate 4 enforce synchronous human review architecturally. |
@@ -43,9 +35,9 @@ Organizations adopting GDI do not need to choose between frameworks. They need t
 | Article | Requirement | GDI Implementation |
 |---------|------------|-------------------|
 | Article 12 | Automatic logging of events relevant to high-risk AI systems | GDRs satisfy Art. 12. Every consequential decision produces a schema-validated log record before execution. |
-| Article 14 | Human oversight measures for high-risk AI systems | Accountability chains satisfy Art. 14. Gate 3 and Gate 4 make human oversight architecturally enforced, not policy-dependent. |
-| Article 86 | Right to explanation of individual decisions | Decision rationale and reasoning reconstruction fields in every GDR satisfy Art. 86's per-decision explanation requirement. |
 | Article 13 | Transparency and provision of information | AI prediction disclosure fields: model identity, confidence score, known limitations. |
+| Article 14 | Human oversight measures for high-risk AI systems | Accountability chains satisfy Art. 14. Gate 3 and Gate 4 make human oversight architecturally enforced. |
+| Article 86 | Right to explanation of individual decisions | Decision rationale and reasoning reconstruction fields in every GDR satisfy Art. 86's per-decision explanation requirement. |
 
 ---
 
@@ -54,10 +46,10 @@ Organizations adopting GDI do not need to choose between frameworks. They need t
 | ARAF Principle | GDI Implementation |
 |---------------|-------------------|
 | Reconstructability principle: decisions must be reconstructable from contemporaneous governance records | GDRs are the contemporaneous governance records ARAF requires. Written before execution, immutable after. |
-| Chain-complete evidence across the Decision Supply Chain | GDR data provenance fields span structured and unstructured sources. Every link in the evidence chain is captured. |
+| Chain-complete evidence across the Decision Supply Chain | GDR data provenance fields span structured and unstructured sources. Every evidence link is captured. |
 | Decision Supply Chain traceability | Downstream propagation fields identify what must change if this decision changes, with named owners. |
 
-ARAF's reconstructability principle is the closest existing work to GDI's core claim. GDI is positioned as the artifact layer that makes reconstructability mechanically achievable rather than aspirationally required.
+ARAF's reconstructability principle is the closest existing framework work to GDI's core claim. GDI is the artifact layer that makes reconstructability mechanically achievable at the decision level.
 
 ---
 
@@ -75,8 +67,8 @@ ARAF's reconstructability principle is the closest existing work to GDI's core c
 | Principle | GDI Implementation |
 |----------|-------------------|
 | Transparency and explainability | AI disclosure protocol: tool identity, purpose, human review tiers, confidence band, cautions. |
-| Accountability | Accountability chain requires named human decision owner. No delegation to systems. |
-| Human-centered values | Confidence threshold model and gate taxonomy enforce human review at proportional points. AI assists; humans decide. |
+| Accountability | Accountability chain requires a named human decision owner. Delegation to systems is architecturally prohibited. |
+| Human-centered values | Confidence threshold model and gate taxonomy enforce human review at proportional risk points. |
 | Robustness and safety | Gate 4 hard escalation ensures autonomous action cannot proceed outside governed parameters. |
 
 ---
@@ -93,7 +85,9 @@ Organizations remain responsible for their own compliance assessments. GDI provi
 
 ---
 
-## Three Governance Altitudes
+## The Three Governance Altitudes
+
+The gap GDI fills becomes visible when governance is mapped by altitude.
 
 | Altitude | What It Governs | Who Has Built This | Status |
 |----------|----------------|-------------------|--------|
@@ -101,4 +95,9 @@ Organizations remain responsible for their own compliance assessments. GDI provi
 | System | Model cards, bias audits, data lineage, model lifecycle, observability | OneTrust, IBM OpenPages, Credo AI, model registries | Emerging |
 | Decision | Individual AI-informed decisions with provenance, accountability, and audit trail | **GDI** | This specification |
 
-GDI occupies the decision altitude. The organizational and system altitudes are necessary but not sufficient. Without the decision layer, governance frameworks cannot produce proof of what happened at the moment a prediction became a consequential action.
+The organizational and system altitudes are necessary. They are not sufficient. Without the decision layer, governance frameworks cannot produce proof of what happened at the moment a prediction became a consequential action. The governed decision record is that proof.
+
+---
+
+*Part of the Governed Decision Intelligence (GDI) specification. Apache 2.0.*
+*[https://github.com/mj3b/governed-decision-intelligence](https://github.com/mj3b/governed-decision-intelligence)*
