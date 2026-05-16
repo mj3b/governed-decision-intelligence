@@ -62,7 +62,7 @@ python examples/insurance_claims.py
 Run the full test suite:
 
 ```bash
-python -m pytest test_gate_classifier.py -v
+python test_gate_classifier.py
 # 114 passed, 0 failed
 ```
 
