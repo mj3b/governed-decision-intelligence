@@ -1,0 +1,75 @@
+site_name: GDI: Governed Decision Intelligence
+site_url: https://mj3b.github.io/gdi-independent-study/
+site_author: Mark Julius Banasihan
+site_description: >-
+  An independent research study on the decision-layer gap in AI governance.
+  Ten questions establishing whether the gap is real, what GDI provides to close it,
+  where GDI's limits lie, and which three problems the specification exposes
+  that the published literature has not yet named.
+
+repo_name: mj3b/governed-decision-intelligence
+repo_url: https://github.com/mj3b/governed-decision-intelligence
+
+copyright: Copyright &copy; 2026 Mark Julius Banasihan &middot; Apache License 2.0
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  font:
+    text: DM Sans
+    code: DM Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.annotate
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Research Questions:
+    - Overview: questions/index.md
+    - "Q1: The Decision-Layer Gap": questions/q1.md
+    - "Q2: Eval-to-Governance Handoff": questions/q2.md
+    - "Q3: Confidence Score Trustworthiness": questions/q3.md
+    - "Q4: The Comprehension Threshold Problem": questions/q4.md
+    - "Q5: Evidence Expiration as Governance Parameter": questions/q5.md
+    - "Q6: Conduct Collapse Detection": questions/q6.md
+    - "Q7: Delegation Provenance Completeness": questions/q7.md
+    - "Q8: CI/CD Governance at Agentic Speed": questions/q8.md
+    - "Q9: Framework Compatibility as Implementation Evidence": questions/q9.md
+    - "Q10: Regulatory Trajectory": questions/q10.md
+    - Results Overview: questions/results-overview.md
+  - References:
+    - About the Author: references/about-the-author.md
+    - Acknowledgements: references/acknowledgements.md
+    - Bibliography: references/bibliography.md
+    - Methods and Technical Notes: references/methods.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+
+plugins:
+  - search
