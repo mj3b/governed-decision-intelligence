@@ -1,0 +1,10 @@
+{
+  "sequence": 1,
+  "session_id": "gdi-repro-001",
+  "timestamp": "2026-07-16T00:00:01Z",
+  "tool_name": "Read",
+  "tool_input": {"path": "./README.md"},
+  "context": {"path_starts_with": "./"},
+  "expected_decision": "allow",
+  "expected_gate": "routine"
+}

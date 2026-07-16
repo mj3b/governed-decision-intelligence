@@ -1,103 +1,92 @@
-# GDI Framework Compatibility
+# Framework Evidence Mapping
 
-GDI occupies a layer no existing governance framework fills. NIST AI RMF, ISO 42001, EU AI Act, and peer frameworks define what organizations should govern, what policies should exist, and what processes should be in place. None defines what a governed decision record contains or how it works at the moment a prediction becomes a consequential action.
+## Purpose
 
-GDI is the implementation artifact that turns framework requirements into governed system behavior. Organizations adopting GDI do not choose between frameworks — they add the decision layer that makes their chosen framework enforceable at execution time.
+This document maps Governed Decision Intelligence artifacts to evidence that may be relevant under external governance instruments. It records an evidentiary relationship. It does not declare certification, conformity, endorsement, or legal compliance.
 
----
+Each mapping asks: which source creates the requirement, which actor and context it governs, which GDI record may supply evidence, what remains outside GDI, and what confidence the mapping earns.
 
-## Framework Mappings
+## Mapping statuses
 
-### NIST AI RMF
+| Status | Meaning |
+|---|---|
+| Direct evidence relationship | The GDI artifact records information expressly requested by the source |
+| Interpretive relationship | The artifact may support the source, subject to implementation or qualified interpretation |
+| Hypothesis | The relationship lacks sufficient review or testing |
+| Outside scope | GDI does not address the requirement |
 
-| RMF Function | Relevant Requirement | GDI Implementation |
-|-------------|---------------------|-------------------|
-| GOVERN | Establish accountability structures and policies | GDR accountability chain: named decision owner, reviewers, approvers, authority scope, and escalation path |
-| MAP | Contextualize AI systems in organizational and regulatory context | Decision context, evidence base, and data provenance fields in every GDR |
-| MEASURE | Analyze and assess AI risk | Confidence threshold model produces quantified risk assessment per decision |
-| MANAGE | Prioritize and address AI risk | Gate taxonomy routes decisions to appropriate human oversight based on assessed risk |
+## NIST AI Risk Management Framework 1.0
 
----
+Official source: https://www.nist.gov/itl/ai-risk-management-framework
 
-### ISO/IEC 42001
+| Function | GDI evidence object | Relationship | Limitation |
+|---|---|---|---|
+| GOVERN | Accountability chain, authority scope, governance covenant, escalation path | Direct evidence relationship | GDI does not establish the full governance program |
+| MAP | Decision question, scope, affected systems, evidence base, data provenance | Direct evidence relationship | System and societal context may extend beyond one decision record |
+| MEASURE | Risk posture, evidence confidence, model confidence, gate rationale | Interpretive relationship | Model confidence may be uncalibrated; GDI does not perform the underlying evaluation |
+| MANAGE | Outcome, conditions, escalation, stopping, downstream propagation | Direct evidence relationship | Control effectiveness and residual-risk acceptance require institutional review |
 
-| Requirement | GDI Implementation |
-|------------|-------------------|
-| Risk management for AI systems | GDR risk posture and residual risk fields. Explicit risk acceptance is a required field. |
-| Documented evidence of governance processes | Schema validation provides process evidence. Every GDR is machine-readable proof of governance execution. |
-| Control A.6.2.8 event logs | GDRs are the event logs. Written before execution. Immutable after. SHA-256 integrity verification. |
-| Human oversight requirements | Accountability chain requires named humans. Gate 3 and Gate 4 enforce synchronous human review architecturally. |
+Mapping confidence: moderate. Sufficiency depends on the organization's RMF profile and implementation.
 
----
+## ISO/IEC 42001:2023
 
-### EU AI Act
+Official source: https://www.iso.org/standard/81230.html
 
-| Article | Requirement | GDI Implementation |
-|---------|------------|-------------------|
-| Article 12 | Automatic logging of events relevant to high-risk AI systems | GDRs satisfy Art. 12. Every consequential decision produces a schema-validated log record before execution. |
-| Article 13 | Transparency and provision of information | AI prediction disclosure fields: model identity, confidence score, known limitations. |
-| Article 14 | Human oversight measures for high-risk AI systems | Accountability chains satisfy Art. 14. Gate 3 and Gate 4 make human oversight architecturally enforced. |
-| Article 86 | Right to explanation of individual decisions | Decision rationale and reasoning reconstruction fields in every GDR satisfy Art. 86's per-decision explanation requirement. |
+GDI can operate as one source of documented operational evidence within an artificial-intelligence management system.
 
----
+| Management-system concern | GDI evidence object | Relationship | Limitation |
+|---|---|---|---|
+| Roles, responsibilities, and authority | Accountability chain and authority scope | Interpretive relationship | Organization-wide role design remains outside one GDR |
+| AI risk assessment and treatment | Evidence base, risk posture, conditions, residual-risk statement | Interpretive relationship | GDI does not replace the management-system risk process |
+| Operational planning and control | Gate classification, governance covenant, escalation path | Interpretive relationship | Control design and effectiveness require implementation evidence |
+| Monitoring, measurement, and evaluation | Audit metadata, downstream propagation, monitoring records where implemented | Hypothesis | The current core schema has limited post-deployment monitoring structure |
+| Documented information | Schema-validated GDR and version metadata | Direct evidence relationship | Record validity does not establish management-system conformity |
 
-### ARAF v3.0
+Mapping confidence: low to moderate. Clause-level conclusions require the licensed standard and qualified review.
 
-| ARAF Principle | GDI Implementation |
-|---------------|-------------------|
-| Reconstructability principle: decisions must be reconstructable from contemporaneous governance records | GDRs are the contemporaneous governance records ARAF requires. Written before execution, immutable after. |
-| Chain-complete evidence across the Decision Supply Chain | GDR data provenance fields span structured and unstructured sources. Every evidence link is captured. |
-| Decision Supply Chain traceability | Downstream propagation fields identify what must change if this decision changes, with named owners. |
+## European Union Artificial Intelligence Act
 
-ARAF's reconstructability principle is the closest existing framework work to GDI's core claim. GDI is the artifact layer that makes reconstructability mechanically achievable at the decision level.
+Official source: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 
----
+The Act assigns obligations according to system classification, actor role, use context, and application date. This table identifies records that may support evidence under selected provisions. It does not determine applicability.
 
-### AIGN OS
+| Provision | GDI evidence object | Relationship | Limitation |
+|---|---|---|---|
+| Article 12, record-keeping | Timestamps, model identity, decision context, outcome, audit metadata | Interpretive relationship | Required technical logs may contain events beyond the GDR |
+| Article 13, transparency and information | AI prediction, limitations, evidence sources, decision scope | Interpretive relationship | Provider instructions and system-level information remain separate obligations |
+| Article 14, human oversight | Named human authority, reviewers, escalation path, intervention gate | Interpretive relationship | A record does not prove reviewer competence, understanding, or practical influence |
+| Article 26, deployer obligations where applicable | Human authority, monitoring, input-data context, incident and escalation records | Interpretive relationship | Applicability depends on actor, system, and use context |
+| Article 86, explanation where applicable | Decision rationale, evidence references, system influence, authority record | Interpretive legal relationship | The right is conditional; explanation sufficiency requires legal analysis |
 
-| Layer | Requirement | GDI Implementation |
-|-------|------------|-------------------|
-| Layer 4: Governance Implementation | Translate governance duties into operational workflows | GDI provides decision-level implementation for Layer 4. The GDR is the workflow artifact that proves governance execution. |
-| Layer 1: Trust Infrastructure | Audit-ready evidence of governance | Schema-validated GDRs with SHA-256 integrity verification provide Layer 1 audit artifacts. |
+Mapping confidence: moderate for evidence relevance, low for legal sufficiency.
 
----
+## OECD AI Principles
 
-### OECD AI Principles
+Official source: https://oecd.ai/en/ai-principles
 
-| Principle | GDI Implementation |
-|----------|-------------------|
-| Transparency and explainability | AI disclosure protocol: tool identity, purpose, human review tiers, confidence band, cautions. |
-| Accountability | Accountability chain requires a named human decision owner. Delegation to systems is architecturally prohibited. |
-| Human-centered values | Confidence threshold model and gate taxonomy enforce human review at proportional risk points. |
-| Robustness and safety | Gate 4 hard escalation ensures autonomous action cannot proceed outside governed parameters. |
+| Principle | GDI evidence object | Relationship | Limitation |
+|---|---|---|---|
+| Transparency and responsible disclosure | Model identity, limitations, evidence, rationale | Principle-level relationship | Disclosure requirements vary by audience and context |
+| Robustness, security, and safety | Risk posture, escalation, stopping, monitoring record | Principle-level relationship | GDI does not conduct security or safety evaluation |
+| Accountability | Named authority, review roles, audit trail, repair ownership where implemented | Direct conceptual relationship | Accountability also requires a forum, consequences, and institutional practice |
 
----
+## Decision Evidence Portability
 
-## What Framework Compatibility Does Not Mean
+The working Decision Evidence Portability Specification develops a stricter mapping record. Every cross-regime claim must record source authority, source type, force, regulated actor, governed object, required evidence, assurance test, local condition, non-equivalence, and confidence.
 
-GDI compatibility with a framework means GDI's artifacts satisfy specific requirements of that framework. It does not mean:
+That work remains in development. It cannot be cited as a completed cross-regime assurance method until its schema, overlays, cases, and review conditions are satisfied.
 
-- Adopting GDI automatically certifies compliance with any framework
-- GDI replaces the organizational, process, and assessment requirements of any framework
-- GDI is endorsed by or affiliated with any framework organization
+## Non-equivalence rules
 
-Organizations remain responsible for their own compliance assessments. GDI provides the decision-layer artifacts that support those assessments.
+A mapping fails when shared terminology hides a material difference in legal force, regulated actor, governed object, timing, evidence burden, assurance method, enforcement consequence, or remedy. Every mature mapping must record at least one point of divergence.
 
----
+## Review status
 
-## The Three Governance Altitudes
+| Source | Last reviewed | Reviewer status |
+|---|---:|---|
+| NIST AI RMF 1.0 | 2026-07-16 | Author review; external review pending |
+| ISO/IEC 42001:2023 | 2026-07-16 | Public-summary review; licensed-standard review pending |
+| EU AI Act | 2026-07-16 | Author review; qualified legal review pending |
+| OECD AI Principles | 2026-07-16 | Author review; external review pending |
 
-The gap GDI fills becomes visible when governance is mapped by altitude.
-
-| Altitude | What It Governs | Who Has Built This | Status |
-|----------|----------------|-------------------|--------|
-| Organizational | Roles, policies, risk registers, board oversight, maturity assessment | NIST AI RMF, ISO 42001, AIGN OS, EU AI Act, OECD Principles | Mature |
-| System | Model cards, bias audits, data lineage, model lifecycle, observability | OneTrust, IBM OpenPages, Credo AI, model registries | Emerging |
-| Decision | Individual AI-informed decisions with provenance, accountability, and audit trail | **GDI** | This specification |
-
-The organizational and system altitudes are necessary. They are not sufficient. Without the decision layer, governance frameworks cannot produce proof of what happened at the moment a prediction became a consequential action. The governed decision record is that proof.
-
----
-
-*Part of the Governed Decision Intelligence (GDI) specification. Apache 2.0.*
-*[https://github.com/mj3b/governed-decision-intelligence](https://github.com/mj3b/governed-decision-intelligence)*
+Part of the Governed Decision Intelligence research repository. Apache License 2.0.

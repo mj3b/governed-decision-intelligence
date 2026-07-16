@@ -3,16 +3,15 @@ message: >
   If you reference this work in research, publications, or implementations,
   please cite it using the metadata below.
 type: software
-title: "GDI: Governed Decision Intelligence — The Decision Architecture for Governed AI"
+title: "Governed Decision Intelligence: The Decision Architecture for Governed AI"
 abstract: >
-  An open specification defining the decision layer of AI governance: the Governed
-  Decision Record (GDR), Confidence Threshold Model, Gate Taxonomy, and CI/CD
-  Governance Integration pattern. GDI sits between the AI inference layer and
-  organizational governance frameworks, providing the implementation artifact that
-  turns framework requirements into governed system behavior at the point where
-  AI predictions become consequential actions. Includes a working Python reference
-  implementation extending Microsoft's Agent Governance Toolkit, and is the 5th
-  conforming implementation of draft-farley-acta-signed-receipts (IETF).
+  An open specification and Python reference implementation for recording the
+  authority, evidence, uncertainty, alternatives, gate classification, and
+  escalation conditions surrounding consequential AI-assisted decisions before
+  execution. The repository includes a Governed Decision Record schema,
+  deterministic gate-classification tests, worked examples, and an experimental
+  signed-receipt interoperability driver. External conformance review and field
+  validation remain pending.
 authors:
   - family-names: Banasihan
     given-names: Mark Julius
@@ -31,21 +30,18 @@ keywords:
   - AI governance
   - decision governance
   - governed decision record
+  - decision evidence
+  - decision authority
   - agent governance
-  - accountability
-  - AI accountability
   - human oversight
-  - NIST AI RMF
-  - ISO 42001
-  - EU AI Act
+  - AI assurance
   - schema validation
   - gate taxonomy
   - confidence threshold
   - decision architecture
-  - responsible AI
 references:
   - type: software
-    title: "RGDS: Regulated Gate Decision Support — Decision-Centric AI Governance in Biopharma/Biotech Development"
+    title: "RGDS: Regulated Gate Decision Support"
     authors:
       - family-names: Banasihan
         given-names: Mark Julius
@@ -53,7 +49,7 @@ references:
     doi: 10.5281/zenodo.20242004
     license: Apache-2.0
   - type: software
-    title: "RGDS Core Framework — Decision Log Schemas and Governance Covenants"
+    title: "RGDS Core Framework"
     authors:
       - family-names: Banasihan
         given-names: Mark Julius
