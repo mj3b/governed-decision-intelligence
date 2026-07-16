@@ -1,0 +1,5 @@
+cffconvert==2.0.0
+cryptography==49.0.0
+jsonschema[format]==4.26.0
+PyYAML==6.0.3
+rfc8785==0.1.4
