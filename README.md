@@ -1,239 +1,266 @@
 # Governed Decision Intelligence (GDI)
-## The Decision Architecture for Governed AI
 
-[![Status: Open Specification](https://img.shields.io/badge/status-open%20specification-5b6cff)](#specification)
-[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v3.0-blue)](#specification)
+## A decision-record specification for AI-assisted and agent-mediated actions
+
+[![CI](https://github.com/mj3b/governed-decision-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/mj3b/governed-decision-intelligence/actions/workflows/ci.yml)
+[![Status: Open Specification](https://img.shields.io/badge/status-open%20specification-5b6cff)](#research-status)
+[![Specification](https://img.shields.io/badge/specification-v3.0-blue)](spec/GDI_v3_The_Decision_Architecture_for_Governed_AI.pdf)
+[![Schema](https://img.shields.io/badge/GDR%20schema-v2.0-4c8bf5)](schema/gdr.schema.json)
+[![Repository release](https://img.shields.io/badge/repository-v2.1.0-6f42c1)](CHANGELOG.md)
+[![DEPS](https://img.shields.io/badge/DEPS-v0.1.1%20working-orange)](working-specifications/decision-evidence-portability-v0.1.md)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20244601-blue)](https://doi.org/10.5281/zenodo.20244601)
-[![Framework Agnostic](https://img.shields.io/badge/framework-agnostic-orange)](#framework-compatibility)
-[![Prior Art](https://img.shields.io/badge/prior%20art-RGDS%20170%2B%20commits-purple)](https://github.com/mj3b/rgds)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0001--8121--2878-brightgreen)](https://orcid.org/0009-0001-8121-2878)
 
-> *"Every governance framework tells organizations what to govern. Every platform gives tools to manage governance processes. No published specification defines the governed decision record itself."*
->
-> — The GDI Thesis
+## Abstract
 
----
+Governed Decision Intelligence is an open specification and Python reference implementation for recording how a consequential AI-assisted decision was framed, authorized, escalated, and preserved before execution. Its primary artifact is the Governed Decision Record (GDR), a schema-validated record of the decision question, system output, evidence, alternatives, risk posture, authority, gate classification, and downstream obligations.
 
-## The Decision Layer Gap
+The repository studies a bounded problem: governance programs often retain policies, model inventories, and system logs while leaving the individual decision difficult to reconstruct. GDI tests whether a contemporaneous decision record can make authorization, evidence access, uncertainty, intervention, and escalation inspectable at the point where an AI output may become an institutional action.
 
-AI governance operates at two altitudes today:
+A literature search completed in May 2026 did not identify an open specification combining these elements in one decision record. That finding is provisional. The search method, adjacent work, limits, and update conditions are documented in [RESEARCH.md](RESEARCH.md).
 
-**Organizational** — NIST AI RMF, ISO 42001, EU AI Act, AIGN OS, OECD Principles govern roles, policies, risk registers, and maturity assessment. These frameworks are mature.
+## Research question
 
-**System** — Model cards, bias audits, data lineage, and model lifecycle management govern AI systems. This space is emerging rapidly.
+> Can a schema-validated record make the authority, evidence, uncertainty, alternatives, and intervention conditions of an AI-informed decision reconstructable before the resulting action executes?
 
-**Decision** — The individual AI-informed decision, where a specific prediction is evaluated, contextualized, and acted upon, remains ungoverned infrastructure. **No published specification defines what a governed decision record contains or how it works mechanically.**
+GDI approaches this question through artifact construction, schema validation, deterministic classification tests, worked examples, and interoperability experiments. It has not yet been validated through an independent field study.
 
-GDI fills that gap.
+## Research status
 
----
+| Component | Version or state | Evidence currently available | Boundary |
+|---|---:|---|---|
+| Core specification | v3.0 | Published PDF and DOI | Independent peer review remains pending |
+| GDR schema contract | v2.0 | Draft 2020-12 JSON Schema and validated example | Schema validity does not establish decision quality |
+| Gate classifier | Reference implementation | 114 deterministic internal tests | Test coverage does not establish domain calibration |
+| Interoperability driver | External PR under review | Local signed-receipt checks and submitted conformance driver | External conformance has not been accepted |
+| Framework mappings | Interpretive analysis | Source-linked evidence mapping | No legal compliance or certification claim |
+| Decision Evidence Portability Specification | v0.1.1 working specification | Public scope, ontology, and acceptance conditions | Schema, overlays, and case studies remain in development |
+| Field validation | Planned | No deployment study published | External validity remains open |
 
-## What GDI Is
+The status table is authoritative for current maturity claims. The [changelog](CHANGELOG.md) records repository releases. The PDF version, schema contract version, repository release, and working-specification version are separate identifiers.
 
-GDI is a domain-agnostic open specification for governing AI-informed decisions at the point where a prediction becomes an action. It defines:
+## Contribution
 
-- **The Governed Decision Record (GDR)** — a schema-validated artifact capturing the reasoning, evidence, confidence, accountability chain, and escalation logic for a single consequential decision, written *before* execution
-- **The Confidence Threshold Model** — Green/Amber/Red zones applying proportional governance based on decision risk
-- **The Gate Taxonomy** — five decision outcomes (Go, Conditional Go, Defer, No-Go, Escalate) as first-class governed artifacts
-- **The CI/CD Governance Integration pattern** — governance embedded as infrastructure, not oversight
-- **Vertical Modules** — domain-specific extensions for biopharma, financial services, telecom, healthcare, and manufacturing
+GDI contributes four connected artifacts:
 
-GDI sits between the AI inference layer and the governance framework layer. Below GDI, data platforms and AI models produce outputs. Above GDI, governance frameworks define what should be governed. GDI is the implementation layer that connects "we have a policy" to "we can prove what happened."
+1. The Governed Decision Record, a machine-readable record of one consequential decision.
+2. A gate taxonomy that assigns required deliberation before execution.
+3. A confidence-assessment input that can route uncertain decisions toward review or escalation.
+4. A reference implementation and interoperability pattern for producing tamper-evident records.
 
----
+The working [Decision Evidence Portability Specification](working-specifications/decision-evidence-portability-v0.1.md) extends this program by asking which evidence objects can support assurance across several governance regimes, which require local overlays, and where apparent equivalence fails.
 
-## The Governed Decision Record
+## What GDI records
 
-The fundamental unit of GDI is the GDR — a single governed decision artifact written before execution.
+| GDR object | Question answered |
+|---|---|
+| Decision question | What exactly was being decided, within what scope and deadline? |
+| AI prediction | Which system output influenced the decision, with what stated confidence and limitations? |
+| Options considered | Which alternatives, including delay or inaction, entered the decision? |
+| Evidence base | What evidence was available, how complete was it, and when was it verified? |
+| Risk posture | Which risks remained, who could accept them, and under what conditions? |
+| Decision outcome | Did the institution proceed, proceed conditionally, defer, reject, or escalate? |
+| Accountability chain | Which human authority owned the decision, review, escalation, and repair obligations? |
+| Data provenance | Which structured and unstructured sources shaped the record? |
+| Confidence assessment | How did the stated score compare with the institution's policy threshold? |
+| Gate classification | What level of deliberation did institutional policy require? |
+| Downstream propagation | Which systems, people, or records must change when the decision changes? |
+| Integrity record | Which fields were sealed at classification time, and can later modification be detected? |
 
-| Element | Description |
-|---------|-------------|
-| Decision Question | The specific question being decided, with deadline and scope |
-| AI Prediction | Model output with structured disclosure: model identity, confidence, limitations |
-| Options Considered | At least two options evaluated, including inaction |
-| Evidence Base | Supporting evidence with completeness classification per item |
-| Risk Posture | Accepted risks, residual risks, tolerance rationale |
-| Decision Outcome | Go, Conditional Go, Defer, No-Go, or Escalate |
-| Accountability Chain | Named decision owner, reviewers, approvers — no delegation to systems |
-| Data Provenance | Structured and unstructured sources with freshness and governance status |
-| Escalation Record | Triggers, paths, and outcomes of any escalation |
-| Downstream Propagation | What must change if this decision changes, with named owners |
+The automated actor is identified separately from the human decision authority. A Gate 1 or Gate 2 action may execute under prior human delegation. The GDR still records the human role that authorized the delegation and owns its consequences.
 
-> An artifact written after the fact is a narrative. An artifact written before execution is evidence.
+## Architecture
 
----
+```text
+external obligation or institutional policy
+                    |
+                    v
+       runtime policy or control event
+                    |
+                    v
+       gate classification before action
+                    |
+                    v
+        Governed Decision Record (GDR)
+                    |
+                    v
+      execution, escalation, or stopping
+                    |
+                    v
+ monitoring, appeal, repair, and reassessment
+```
 
-## Framework Compatibility
+Runtime governors decide whether an action may proceed under configured policy. GDI records the decision evidence surrounding that control event. The distinction allows interoperability with projects such as Microsoft Agent Governance Toolkit, Credo AI Agent Governor, and signed-receipt standards without claiming to replace them.
 
-GDI does not compete with existing governance frameworks. It completes them.
+## Quick start
 
-| Framework | Requirement | GDI Implementation |
-|-----------|-------------|-------------------|
-| NIST AI RMF | GOVERN: accountability structures. MAP: contextualize AI systems | GDR accountability chain satisfies GOVERN. Decision context and data provenance satisfy MAP |
-| ISO/IEC 42001 | Risk management. Documented governance evidence. Control A.6.2.8 event logs | GDR risk posture fields. Schema validation provides process evidence. GDRs are the event logs |
-| EU AI Act | Art. 12: automatic logging. Art. 14: human oversight. Art. 86: right to explanation | GDRs satisfy Art. 12. Accountability chains satisfy Art. 14. Decision rationale satisfies Art. 86 |
-| ARAF v3.0 | Reconstructability principle: decisions reconstructable from contemporaneous records | GDRs are the contemporaneous governance records ARAF requires |
-| AIGN OS | Layer 4: translate duties into workflows. Layer 1: audit-ready evidence | GDI provides decision-level implementation for Layer 4. Schema-validated GDRs provide Layer 1 artifacts |
+Requirements: Python 3.10 or later.
 
-Full mapping: [`docs/framework-compatibility.md`](docs/framework-compatibility.md)
+```bash
+git clone https://github.com/mj3b/governed-decision-intelligence.git
+cd governed-decision-intelligence
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+python scripts/validate_repository.py
+```
 
----
+The validation script checks the JSON Schema, the populated GDR example, top-level JSON and YAML schema contract parity, the gate-classifier test suite, deterministic interoperability fixtures, signed-receipt integrity, and citation metadata.
 
-## Reference Implementation
+A successful run ends with:
 
-The `reference-implementation/gate-classifier/` directory contains a working Python implementation extending [Microsoft's Agent Governance Toolkit](https://github.com/microsoft/agent-governance-toolkit) with decision-layer classification.
+```text
+repository validation: PASS
+```
 
-AGT governs what an agent **does** (action layer: allow/deny before execution).
-The gate classifier governs what **category of decision** the agent was making (decision layer: what level of human deliberation does this require?).
+See [Validation and reproducibility](docs/validation-and-reproducibility.md) for the environment, commands, expected results, and the limits of each test.
+
+## Minimal Python example
 
 ```python
-from gate_classifier import GateClassifier, Gate
+from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path("reference-implementation/gate-classifier").resolve()))
+
+from gate_classifier import GateClassifier
 
 classifier = GateClassifier()
 record = classifier.evaluate(
     policy_allowed=True,
-    policy_confidence_threshold=0.8,
+    policy_confidence_threshold=0.80,
     agent_id="claims-agent-001",
     tool_name="database_write",
     tool_args={"table": "claims_decisions"},
     confidence_score=0.85,
 )
-# record.gate == Gate.ELEVATED_REVIEW
-# record.record_hash  # SHA-256, written before execution
+
+print(record.gate.value)
+print(record.record_hash)
+print(record.verify_integrity())
 ```
 
-114 tests, all passing. Run standalone without AGT installed.
+The reference classifier is an executable research artifact. Institutions must supply domain-specific gate rules, authority boundaries, confidence calibration, and review procedures.
 
----
+## Evidence and claim discipline
 
-## Interoperability: Veritas Acta Receipt Standard
+The repository separates demonstrated properties from research hypotheses.
 
-GDI has submitted a conformance driver to [ScopeBlind/agent-governance-testvectors](https://github.com/ScopeBlind/agent-governance-testvectors), the cross-implementation conformance repository for [`draft-farley-acta-signed-receipts`](https://datatracker.ietf.org/doc/draft-farley-acta-signed-receipts/) (IETF). Other implementations in the suite: TypeScript (`protect-mcp`), Python (`protect-mcp-adk`), Rust (`sb-runtime`), and the APS governance hook.
+| Claim | Current support | Status |
+|---|---|---|
+| A populated GDR can be validated against the published schema | Schema validation in CI | Demonstrated for included fixtures |
+| Gate classification is deterministic for the included rules | 114 internal tests | Demonstrated for the reference implementation |
+| Gate records detect modification to sealed fields | Integrity tests | Demonstrated for the current hash profile |
+| GDI receipts can interoperate with the external ACTA test-vector suite | Local checks and open external PR | External review pending |
+| GDR fields can support evidence requests under NIST, ISO, and EU governance instruments | Source-linked interpretive mapping | Requires implementation and qualified review |
+| A GDR preserves substantive human judgment | No field study yet | Unresolved; Human Influence Telemetry addresses this test separately |
+| GDI improves outcomes in deployed institutions | No comparative deployment data | Unresolved |
 
-The GDI driver embeds a full GDR in the receipt's signed payload before execution:
+Full claim definitions, evidence classes, update conditions, and threats to validity appear in [RESEARCH.md](RESEARCH.md).
 
-```json
-result_hash = sha256(JCS(GDR))
-```
+## Framework evidence mapping
 
-All three conformance checks pass against the local suite: schema validation, Ed25519 signature verification, and hash-chain integrity.
+GDI may produce evidence relevant to governance requirements. The repository does not declare conformity, certification, or legal compliance.
 
-**Conformance PR (pending review):** [`ScopeBlind/agent-governance-testvectors#7`](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7)
-**AGT discussion (open):** [`microsoft/agent-governance-toolkit#276`](https://github.com/microsoft/agent-governance-toolkit/discussions/276)
+| Source | GDI evidence that may be relevant | Mapping status |
+|---|---|---|
+| NIST AI Risk Management Framework | Named roles, decision context, risk evidence, monitoring, and escalation records | Interpretive mapping |
+| ISO/IEC 42001 | Documented AI-management evidence, risk treatment records, role assignment, and operational records | Interpretive mapping; licensed standard review required |
+| European Union Artificial Intelligence Act | Logging, human-oversight, information, and explanation-related records where the relevant provisions apply | Interpretive legal mapping |
+| OECD AI Principles | Traceability, accountability roles, transparency, and human intervention records | Principle-level mapping |
 
----
+See [Framework evidence mapping](docs/framework-compatibility.md). Each mapping records its source, legal or normative force, evidentiary relationship, limitation, and confidence. GDI evidence can support an assessment. The responsible institution and qualified reviewers determine whether the evidence is sufficient.
 
-## Repository Structure
+## Related work and scope boundary
 
-```
+GDI sits beside several established and emerging approaches:
+
+- Governance frameworks define organizational duties and risk-management processes.
+- Runtime governance systems enforce permissions, approvals, and action boundaries.
+- Cryptographic receipt standards establish integrity, attribution, and ordering.
+- GDI defines the decision record and the evidence needed to reconstruct institutional authorization.
+- Human Influence Telemetry tests whether formal human authority retained practical force inside the workflow.
+
+The detailed comparison, including Microsoft Agent Governance Toolkit, Credo AI Agent Governor, ACTA signed receipts, accountability theory, and meaningful human control, appears in [Related work](docs/related-work.md).
+
+## Limits
+
+GDI does not establish that a model output is true, a confidence score is calibrated, a reviewer understood the evidence, or a decision was lawful. A hash can detect modification to sealed fields; it cannot establish that the original fields were accurate. A complete record can document ceremonial review as easily as substantive review unless the workflow also measures evidence access, override ability, independent reasoning, and repair authority.
+
+The specification also does not solve deceptive alignment, reward hacking, compromised telemetry, collusive agents, or failures that remain invisible to the governance layer. See [Limitations and threats to validity](docs/limitations.md).
+
+## Repository map
+
+```text
 governed-decision-intelligence/
-├── spec/
-│   └── GDI_v3_The_Decision_Architecture_for_Governed_AI.pdf   ← Core specification
-├── schema/
-│   ├── gdr.schema.json        ← Governed Decision Record JSON Schema
-│   ├── gdr.schema.yaml        ← YAML companion for readability
-│   └── gdr.example.json       ← Fully populated example, schema-validated
-├── reference-implementation/
-│   └── gate-classifier/       ← Gate classification layer for Microsoft AGT
-│       ├── gate_classifier.py
-│       ├── test_gate_classifier.py (114 tests)
-│       └── examples/
-│           └── insurance_claims.py
-├── examples/
-│   ├── insurance-claims/      ← Four-gate walkthrough
-│   └── testvectors-interop/   ← IETF draft-farley-acta conformance driver
-├── docs/
-│   ├── bilateral-pattern.md
-│   ├── confidence-threshold-model.md
-│   ├── framework-compatibility.md
-│   └── gate-taxonomy.md
-├── CHANGELOG.md
+├── README.md
+├── RESEARCH.md
 ├── CITATION.cff
-├── CONTRIBUTING.md
-├── LICENSE                    ← Apache 2.0
-└── NOTICE
+├── CHANGELOG.md
+├── requirements-dev.txt
+├── scripts/
+│   └── validate_repository.py
+├── spec/
+│   ├── GDI_v3_The_Decision_Architecture_for_Governed_AI.pdf
+│   └── independent-study/
+├── schema/
+│   ├── gdr.schema.json
+│   ├── gdr.schema.yaml
+│   └── gdr.example.json
+├── reference-implementation/
+│   └── gate-classifier/
+├── examples/
+│   ├── insurance-claims/
+│   └── testvectors-interop/
+├── fixtures/
+│   └── inputs/
+├── docs/
+│   ├── framework-compatibility.md
+│   ├── related-work.md
+│   ├── limitations.md
+│   ├── validation-and-reproducibility.md
+│   ├── gate-taxonomy.md
+│   ├── confidence-threshold-model.md
+│   └── bilateral-pattern.md
+└── working-specifications/
+    └── decision-evidence-portability-v0.1.md
 ```
 
----
+## Release and review policy
 
-## Prior Art
+A numbered release requires:
 
-GDI evolved from **RGDS (Regulated Gate Decision Support)**, a biopharma reference implementation developed to govern IND and BLA submission decisions.
+1. passing repository validation on a clean environment;
+2. synchronized JSON and YAML schemas;
+3. a changelog entry identifying normative and non-normative changes;
+4. updated citation metadata;
+5. documented limitations and migration effects;
+6. a stable archived release with a DOI;
+7. external review for any claim presented as independently validated.
 
-| Repository | Purpose | Status |
-|-----------|---------|--------|
-| [mj3b/governed-decision-intelligence](https://github.com/mj3b/governed-decision-intelligence) | GDI Core Specification, schemas, reference implementation | This repo |
-| [mj3b/rgds](https://github.com/mj3b/rgds) | Biopharma reference implementation. 170+ commits, 6 canonical examples, CI validation | v2.0.0 active |
-| [mj3b/rgds-independent-study](https://github.com/mj3b/rgds-independent-study) | Ten-question independent study on FDA reconstructability and AI governance | Published · [DOI: 10.5281/zenodo.20242004](https://doi.org/10.5281/zenodo.20242004) |
-| [mj3b/rgds-ai-governance](https://github.com/mj3b/rgds-ai-governance) | AI governance covenants. Non-agentic boundaries, human ownership requirements | Reference governance |
-
-The Git commit history across these repositories provides date-stamped evidence of the design evolution. The timestamps are the prior art.
-
----
-
-## Design Principles
-
-**AI generates predictions. Humans exercise judgment.** No component in the architecture is permitted to silently decide, approve, or accept risk.
-
-**The decision is the primary artifact.** Everything else — evidence, analysis, models, data — serves the decision record.
-
-**Governance is infrastructure, not oversight.** Schemas, validation pipelines, and enforcement logic operate continuously and automatically.
-
-**Risk determines rigor.** Low-risk decisions receive lightweight automated governance. High-risk decisions receive full human review with complete GDR documentation.
-
-**Stopping early is risk reduction.** Defer and no-go are first-class governed outcomes with the same structural rigor as go decisions.
-
-**AI assistance is optional and removable.** Every governed decision must remain defensible if all AI outputs are removed.
-
----
-
-## Why This Is Hard to Build Without GDI
-
-Five structural reasons the decision layer is absent from current governance infrastructure:
-
-1. **IT Governance Inheritance** — frameworks evolved from IT and data governance traditions that focus on systems and data quality; individual decisions were never the governed object
-2. **Static-Dynamic Mismatch** — traditional compliance operates on quarterly audit cycles; AI decisions occur at millisecond speed
-3. **Wrong Abstraction Layer** — the EU AI Act classifies systems by risk level; individual decisions within a high-risk system receive no independent governance treatment
-4. **Policy-Proof Gap** — "humans remain accountable" is meaningless without an operational answer to: who had the right to delegate this action, and can you demonstrate what happened?
-5. **Governance as Performance** — organizations perform oversight symbolically while real decisions occur outside formal channels
-
----
+Working specifications remain clearly labeled and are excluded from stable conformance claims until their stated acceptance conditions are met.
 
 ## Citation
 
 ```bibtex
 @software{banasihan2026gdi,
-  author    = {Banasihan, Mark Julius},
-  title     = {{GDI} v3: The Decision Architecture for Governed {AI}},
-  year      = {2026},
-  month     = {4},
-  version   = {3.0},
-  doi       = {10.5281/zenodo.20244601},
-  url       = {https://doi.org/10.5281/zenodo.20244601},
-  license   = {Apache-2.0}
+  author  = {Banasihan, Mark Julius},
+  title   = {Governed Decision Intelligence: The Decision Architecture for Governed AI},
+  year    = {2026},
+  version = {3.0},
+  doi     = {10.5281/zenodo.20244601},
+  url     = {https://doi.org/10.5281/zenodo.20244601},
+  license = {Apache-2.0}
 }
 ```
 
----
+Machine-readable metadata is available in [CITATION.cff](CITATION.cff).
 
-## Status
+## License and author
 
-GDI v2.1 is a published open specification. The schema, reference implementation, and conformance driver are in active development.
+Copyright 2026 Mark Julius Banasihan. Licensed under the [Apache License 2.0](LICENSE).
 
-**Contributions welcome:** vertical module proposals, schema extensions, integration examples, framework compatibility analysis. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Mark Julius Banasihan is an independent applied researcher working on decision authority, human influence, evaluation, and assurance in AI-mediated institutional systems.
 
----
-
-## License
-
-Copyright © 2026 Mark Julius Banasihan. Licensed under the [Apache License 2.0](LICENSE).
-
----
-
-## Author
-
-**Mark Julius Banasihan**
-Decision governance systems for regulated, high-stakes environments.
-
-[GitHub](https://github.com/mj3b) · [LinkedIn](https://linkedin.com/in/markjuliusbanasihan) · [ORCID](https://orcid.org/0009-0001-8121-2878) · Atlanta, Georgia, United States
+[GitHub](https://github.com/mj3b) | [LinkedIn](https://linkedin.com/in/markjuliusbanasihan) | [ORCID](https://orcid.org/0009-0001-8121-2878)
