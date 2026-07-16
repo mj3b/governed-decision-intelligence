@@ -1,0 +1,10 @@
+{
+  "sequence": 2,
+  "session_id": "gdi-repro-001",
+  "timestamp": "2026-07-16T00:00:02Z",
+  "tool_name": "Write",
+  "tool_input": {"path": "./results/output.json", "content_hash": "sha256:test"},
+  "context": {"path_starts_with": "./"},
+  "expected_decision": "allow",
+  "expected_gate": "elevated_review"
+}
