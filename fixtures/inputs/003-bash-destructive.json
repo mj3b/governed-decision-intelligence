@@ -1,0 +1,10 @@
+{
+  "sequence": 3,
+  "session_id": "gdi-repro-001",
+  "timestamp": "2026-07-16T00:00:03Z",
+  "tool_name": "Bash",
+  "tool_input": {"command": "rm -rf /"},
+  "context": {"command_pattern": "rm -rf"},
+  "expected_decision": "deny",
+  "expected_gate": "blocked"
+}
