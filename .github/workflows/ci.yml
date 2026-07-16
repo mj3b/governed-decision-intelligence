@@ -1,4 +1,4 @@
-name: GDI CI — Schema Validation and Tests
+name: GDI Research Validation
 
 on:
   push:
@@ -7,10 +7,15 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  validate-schema:
-    name: Validate GDR Schema and Example
+  validate:
+    name: Repository validation
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,60 +24,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
 
-      - name: Install jsonschema
-        run: pip install jsonschema
+      - name: Install pinned validation dependencies
+        run: python -m pip install -r requirements-dev.txt
 
-      - name: Validate gdr.example.json against gdr.schema.json
-        run: |
-          python3 - <<'PYEOF'
-          import json
-          import jsonschema
-
-          with open("schema/gdr.schema.json") as f:
-              schema = json.load(f)
-          with open("schema/gdr.example.json") as f:
-              example = json.load(f)
-
-          jsonschema.validate(instance=example, schema=schema)
-          print("✓ gdr.example.json validates against gdr.schema.json")
-          PYEOF
-
-  test-gate-classifier:
-    name: Gate Classifier Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Run gate classifier tests
-        working-directory: reference-implementation/gate-classifier
-        run: |
-          python test_gate_classifier.py
-          echo "✓ Gate classifier tests passed"
-
-  interop-check:
-    name: Interoperability Driver Check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: pip install jsonschema cryptography
-
-      - name: Verify interop driver runs
-        working-directory: examples/testvectors-interop
-        run: |
-          python3 gdi_driver.py || true
-          echo "✓ Interoperability driver executed"
+      - name: Run complete research validation
+        run: python scripts/validate_repository.py
