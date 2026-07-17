@@ -7,7 +7,7 @@
 [![Specification](https://img.shields.io/badge/specification-v3.0-blue)](spec/GDI_v3_The_Decision_Architecture_for_Governed_AI.pdf)
 [![Schema](https://img.shields.io/badge/GDR%20schema-v2.0-4c8bf5)](schema/gdr.schema.json)
 [![Repository release](https://img.shields.io/badge/repository-v2.1.0-6f42c1)](CHANGELOG.md)
-[![DEPS](https://img.shields.io/badge/DEPS-v0.1.1%20working-orange)](working-specifications/decision-evidence-portability-v0.1.md)
+[![DEAS](https://img.shields.io/badge/DEAS-v0.2.0%20working-orange)](working-specifications/decision-evidence-applicability-v0.2.md)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.20244601-blue)](https://doi.org/10.5281/zenodo.20244601)
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-green)](LICENSE)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0001--8121--2878-brightgreen)](https://orcid.org/0009-0001-8121-2878)
@@ -16,7 +16,7 @@
 
 Governed Decision Intelligence is an open specification and Python reference implementation for recording how a consequential AI-assisted decision was framed, authorized, escalated, and preserved before execution. Its primary artifact is the Governed Decision Record (GDR), a schema-validated record of the decision question, system output, evidence, alternatives, risk posture, authority, gate classification, and downstream obligations.
 
-The repository studies a bounded problem: governance programs often retain policies, model inventories, and system logs while leaving the individual decision difficult to reconstruct. GDI tests whether a contemporaneous decision record can make authorization, evidence access, uncertainty, intervention, and escalation inspectable at the point where an AI output may become an institutional action.
+The repository studies a bounded problem: governance programs often retain policies, model inventories, runtime events, and system logs while leaving the individual institutional decision difficult to reconstruct. GDI tests whether a contemporaneous decision record can make authorization, evidence access, uncertainty, intervention, and escalation inspectable at the point where an AI output may become an institutional action.
 
 A literature search completed in May 2026 did not identify an open specification combining these elements in one decision record. That finding is provisional. The search method, adjacent work, limits, and update conditions are documented in [RESEARCH.md](RESEARCH.md).
 
@@ -35,7 +35,7 @@ GDI approaches this question through artifact construction, schema validation, d
 | Gate classifier | Reference implementation | 114 deterministic internal tests | Test coverage does not establish domain calibration |
 | Interoperability driver | External PR under review | Local signed-receipt checks and submitted conformance driver | External conformance has not been accepted |
 | Framework mappings | Interpretive analysis | Source-linked evidence mapping | No legal compliance or certification claim |
-| Decision Evidence Portability Specification | v0.1.1 working specification | Public scope, ontology, and acceptance conditions | Schema, overlays, and case studies remain in development |
+| Decision Evidence Applicability Specification | v0.2.0 working specification | Revised thesis, determination states, adjacent-system boundary, and acceptance conditions | Schema, authoritative mappings, overlays, cases, and reviews remain in development |
 | Field validation | Planned | No deployment study published | External validity remains open |
 
 The status table is authoritative for current maturity claims. The [changelog](CHANGELOG.md) records repository releases. The PDF version, schema contract version, repository release, and working-specification version are separate identifiers.
@@ -49,7 +49,9 @@ GDI contributes four connected artifacts:
 3. A confidence-assessment input that can route uncertain decisions toward review or escalation.
 4. A reference implementation and interoperability pattern for producing tamper-evident records.
 
-The working [Decision Evidence Portability Specification](working-specifications/decision-evidence-portability-v0.1.md) extends this program by asking which evidence objects can support assurance across several governance regimes, which require local overlays, and where apparent equivalence fails.
+The working [Decision Evidence Applicability Specification](working-specifications/decision-evidence-applicability-v0.2.md) extends this program by asking whether a defined evidence artifact is applicable to a specified governance requirement, what bounded assurance proposition it may support, what additional local evidence is required, where it is insufficient, and where apparent equivalence fails.
+
+DEAS does not claim that governance, controls, findings, evidence, or legal conclusions are portable across regimes.
 
 ## What GDI records
 
@@ -91,7 +93,21 @@ external obligation or institutional policy
  monitoring, appeal, repair, and reassessment
 ```
 
-Runtime governors decide whether an action may proceed under configured policy. GDI records the decision evidence surrounding that control event. The distinction allows interoperability with projects such as Microsoft Agent Governance Toolkit, Credo AI Agent Governor, and signed-receipt standards without claiming to replace them.
+Runtime governors decide whether an action may proceed under configured policy. GDI records the institutional decision evidence surrounding that control event. Signed-receipt systems may seal the GDR or related events. HIT may assess whether the documented human authority retained practical force. DEAS may evaluate what the resulting evidence can support under a specified governance requirement.
+
+The layers can interoperate without collapsing their claims.
+
+## Adjacent-system boundary
+
+| System | Primary layer | Boundary from GDI and DEAS |
+|---|---|---|
+| Microsoft Agent Governance Toolkit | Runtime action governance | Evaluates policy, identity, capability, approval, sandbox, allow or deny, and audit events. GDI may record those events but does not replace runtime enforcement. |
+| ScopeBlind / Acta | Signed-receipt interoperability | Verifies schema, canonicalization, signatures, attribution, ordering, and chain linkage. GDI can supply payload semantics; DEAS can evaluate assurance use. Neither defines the receipt protocol. |
+| Credo AI | Governance platform, policy packs, control mapping, evidence workflows, and runtime governance | GDI does not provide policy packs or compliance automation. DEAS does not provide a universal harmonized-control model. |
+| Human Influence Telemetry | Documentary human-influence assessment | HIT evaluates whether formal human authority retained practical force. A complete GDR does not prove that result. |
+| DEAS | Evidence-to-requirement qualification | Evaluates applicability, local evidence conditions, sufficiency boundaries, and non-equivalence. It does not make evidence portable. |
+
+See [Related work and scope boundary](docs/related-work.md).
 
 ## Quick start
 
@@ -106,7 +122,7 @@ python -m pip install -r requirements-dev.txt
 python scripts/validate_repository.py
 ```
 
-The validation script checks the JSON Schema, the populated GDR example, top-level JSON and YAML schema contract parity, the gate-classifier test suite, deterministic interoperability fixtures, signed-receipt integrity, and citation metadata.
+The validation script checks the JSON Schema, populated GDR example, top-level JSON and YAML schema contract parity, gate-classifier test suite, deterministic interoperability fixtures, signed-receipt integrity, and citation metadata.
 
 A successful run ends with:
 
@@ -114,7 +130,7 @@ A successful run ends with:
 repository validation: PASS
 ```
 
-See [Validation and reproducibility](docs/validation-and-reproducibility.md) for the environment, commands, expected results, and the limits of each test.
+See [Validation and reproducibility](docs/validation-and-reproducibility.md) for the environment, commands, expected results, and limits of each test.
 
 ## Minimal Python example
 
@@ -152,9 +168,10 @@ The repository separates demonstrated properties from research hypotheses.
 | A populated GDR can be validated against the published schema | Schema validation in CI | Demonstrated for included fixtures |
 | Gate classification is deterministic for the included rules | 114 internal tests | Demonstrated for the reference implementation |
 | Gate records detect modification to sealed fields | Integrity tests | Demonstrated for the current hash profile |
-| GDI receipts can interoperate with the external ACTA test-vector suite | Local checks and open external PR | External review pending |
+| GDI receipts can interoperate with the external Acta test-vector suite | Local checks and open external PR | External review pending |
 | GDR fields can support evidence requests under NIST, ISO, and EU governance instruments | Source-linked interpretive mapping | Requires implementation and qualified review |
 | A GDR preserves substantive human judgment | No field study yet | Unresolved; Human Influence Telemetry addresses this test separately |
+| DEAS can determine evidence applicability and non-equivalence across defined requirements | Working specification only | Unresolved until schema, mappings, cases, and review exist |
 | GDI improves outcomes in deployed institutions | No comparative deployment data | Unresolved |
 
 Full claim definitions, evidence classes, update conditions, and threats to validity appear in [RESEARCH.md](RESEARCH.md).
@@ -178,15 +195,19 @@ GDI sits beside several established and emerging approaches:
 
 - Governance frameworks define organizational duties and risk-management processes.
 - Runtime governance systems enforce permissions, approvals, and action boundaries.
-- Cryptographic receipt standards establish integrity, attribution, and ordering.
-- GDI defines the decision record and the evidence needed to reconstruct institutional authorization.
-- Human Influence Telemetry tests whether formal human authority retained practical force inside the workflow.
+- Cryptographic receipt standards establish integrity, attribution, ordering, and chain linkage.
+- Governance platforms translate policy into controls, workflows, and evidence requests.
+- GDI defines the decision record and evidence needed to reconstruct institutional authorization.
+- Human Influence Telemetry evaluates whether formal human authority retained practical force inside the workflow.
+- DEAS evaluates the bounded assurance use of a defined evidence artifact under one specified requirement.
 
-The detailed comparison, including Microsoft Agent Governance Toolkit, Credo AI Agent Governor, ACTA signed receipts, accountability theory, and meaningful human control, appears in [Related work](docs/related-work.md).
+The detailed comparison appears in [Related work](docs/related-work.md).
 
 ## Limits
 
 GDI does not establish that a model output is true, a confidence score is calibrated, a reviewer understood the evidence, or a decision was lawful. A hash can detect modification to sealed fields; it cannot establish that the original fields were accurate. A complete record can document ceremonial review as easily as substantive review unless the workflow also measures evidence access, override ability, independent reasoning, and repair authority.
+
+DEAS does not establish evidence portability, legal sufficiency, conformity, certification, or admissibility. Applicability means relevance to a bounded requirement, not proof that the requirement has been satisfied.
 
 The specification also does not solve deceptive alignment, reward hacking, compromised telemetry, collusive agents, or failures that remain invisible to the governance layer. See [Limitations and threats to validity](docs/limitations.md).
 
@@ -224,7 +245,8 @@ governed-decision-intelligence/
 │   ├── confidence-threshold-model.md
 │   └── bilateral-pattern.md
 └── working-specifications/
-    └── decision-evidence-portability-v0.1.md
+    ├── decision-evidence-applicability-v0.2.md
+    └── decision-evidence-portability-v0.1.md  # deprecated migration pointer
 ```
 
 ## Release and review policy

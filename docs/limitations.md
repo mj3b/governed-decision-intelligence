@@ -12,6 +12,8 @@ Human Influence Telemetry addresses this gap by testing evidence access, indepen
 
 A record hash can detect later modification to fields included in the hash profile. It cannot establish that the original record was accurate, complete, timely, or honestly produced. Integrity depends on canonicalization, field selection, key custody where signatures are used, and protection of the record-generation path.
 
+A cryptographically valid ScopeBlind/Acta receipt can strengthen attribution, integrity, ordering, and chain evidence. It does not establish payload truth, governance quality, legal sufficiency, or practical human influence.
+
 ## Confidence scores require calibration
 
 The reference implementation accepts confidence values between 0 and 1 and compares them with institutional thresholds. These values may represent different quantities across models and tasks. Some systems provide no meaningful confidence estimate. Deployment requires domain-specific calibration, error-cost analysis, drift monitoring, and a rule for absent or invalid confidence.
@@ -19,6 +21,34 @@ The reference implementation accepts confidence values between 0 and 1 and compa
 ## Framework mappings are interpretive
 
 Mappings to NIST AI RMF, ISO/IEC 42001, the European Union Artificial Intelligence Act, and OECD principles identify potentially relevant evidence. They do not establish applicability, conformity, certification, or legal sufficiency. ISO clause-level conclusions require access to the licensed standard. Legal conclusions require qualified review.
+
+## Applicability is not portability
+
+Decision Evidence Applicability Specification evaluates one defined evidence artifact against one identified governance requirement.
+
+An applicability determination does not establish that the evidence, control, finding, or legal conclusion can be transferred across regimes without loss of meaning or force.
+
+The same artifact may be:
+
+- relevant under several regimes;
+- sufficient under one and insufficient under another;
+- structurally reusable but legally non-equivalent;
+- acceptable only when combined with local evidence;
+- cryptographically authentic but substantively weak;
+- technically complete but outside the governed actor or lifecycle stage.
+
+DEAS remains a working specification. Its schema, authoritative mappings, overlays, cases, reviewer protocol, and validation suite are incomplete.
+
+## Adjacent-system boundaries can change
+
+Microsoft Agent Governance Toolkit, ScopeBlind/Acta, Credo AI, and other adjacent systems may change scope, terminology, or implementation. Repository comparisons are dated and provisional.
+
+GDI and DEAS must not claim functions performed by those systems without an implemented and tested capability. In particular, the repository must separate:
+
+- runtime action enforcement from decision reconstruction;
+- signed-receipt verification from payload semantics;
+- policy packs and harmonized control mappings from evidence-applicability determinations;
+- documentary evidence relevance from legal or standards sufficiency.
 
 ## Examples have limited external validity
 
@@ -38,8 +68,8 @@ Decision records can contain personal data, sensitive evidence, model inputs, an
 
 ## Independent validation remains pending
 
-The reference implementation and mappings were developed by the project author. External review, replication, adversarial testing, and comparative deployment studies remain open research needs.
+The reference implementation and mappings were developed by the project author. External review, replication, adversarial testing, legal or standards review, and comparative deployment studies remain open research needs.
 
 ## Update condition
 
-These limitations must be revised whenever the schema, hash profile, framework mappings, reference implementation, or empirical evidence changes.
+These limitations must be revised whenever the schema, hash profile, framework mappings, reference implementation, adjacent-system scope, DEAS determination model, or empirical evidence changes.
