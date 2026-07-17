@@ -15,6 +15,8 @@ Each mapping asks: which source creates the requirement, which actor and context
 | Hypothesis | The relationship lacks sufficient review or testing |
 | Outside scope | GDI does not address the requirement |
 
+These statuses describe evidence relevance only. They do not establish sufficiency.
+
 ## NIST AI Risk Management Framework 1.0
 
 Official source: https://www.nist.gov/itl/ai-risk-management-framework
@@ -70,15 +72,49 @@ Official source: https://oecd.ai/en/ai-principles
 | Robustness, security, and safety | Risk posture, escalation, stopping, monitoring record | Principle-level relationship | GDI does not conduct security or safety evaluation |
 | Accountability | Named authority, review roles, audit trail, repair ownership where implemented | Direct conceptual relationship | Accountability also requires a forum, consequences, and institutional practice |
 
-## Decision Evidence Portability
+## Decision Evidence Applicability Specification
 
-The working Decision Evidence Portability Specification develops a stricter mapping record. Every cross-regime claim must record source authority, source type, force, regulated actor, governed object, required evidence, assurance test, local condition, non-equivalence, and confidence.
+The working Decision Evidence Applicability Specification develops a stricter evidence-to-requirement record.
 
-That work remains in development. It cannot be cited as a completed cross-regime assurance method until its schema, overlays, cases, and review conditions are satisfied.
+Every DEAS determination must record:
+
+- one identified evidence artifact;
+- one authoritative requirement;
+- the source authority, source type, and legal or normative force;
+- the regulated actor and governed object;
+- the decision or lifecycle stage;
+- one bounded assurance proposition;
+- the applicability rationale;
+- required and supplied evidence;
+- the assurance test;
+- a determination state;
+- local evidence conditions;
+- the sufficiency boundary;
+- at least one point of non-equivalence where applicable;
+- mapping confidence, reviewer competence, and update conditions.
+
+DEAS does not make evidence portable. It may conclude that an artifact is applicable, applicable only with local evidence, insufficient, non-equivalent, not applicable, or indeterminate.
+
+That work remains in development. It cannot be cited as a completed cross-regime assurance method until its schema, authoritative mappings, overlays, cases, reviewer protocol, and review conditions are satisfied.
 
 ## Non-equivalence rules
 
-A mapping fails when shared terminology hides a material difference in legal force, regulated actor, governed object, timing, evidence burden, assurance method, enforcement consequence, or remedy. Every mature mapping must record at least one point of divergence.
+A mapping fails when shared terminology hides a material difference in legal force, regulated actor, governed object, timing, evidence burden, assurance method, procedural posture, enforcement consequence, or remedy.
+
+Structural reuse is not legal or normative equivalence. Cryptographic integrity is not assurance sufficiency. A policy-pack control mapping is not automatically an authoritative legal interpretation.
+
+Every mature mapping must record at least one point of divergence or an evidenced explanation for why no material divergence applies.
+
+## Adjacent-system boundary
+
+- Microsoft Agent Governance Toolkit produces runtime policy, approval, identity, capability, enforcement, and audit events.
+- ScopeBlind/Acta establishes signed-receipt schema, canonicalization, signature, attribution, ordering, and chain-verification properties.
+- Credo AI provides policy packs, control mappings, governance workflows, evidence collection, compliance mapping, monitoring, and runtime governance.
+- GDI structures one consequential decision record.
+- HIT evaluates practical human influence.
+- DEAS evaluates the bounded assurance use of a defined evidence artifact under a specified requirement.
+
+No layer inherits another layer's claims merely because artifacts are linked.
 
 ## Review status
 
@@ -88,5 +124,8 @@ A mapping fails when shared terminology hides a material difference in legal for
 | ISO/IEC 42001:2023 | 2026-07-16 | Public-summary review; licensed-standard review pending |
 | EU AI Act | 2026-07-16 | Author review; qualified legal review pending |
 | OECD AI Principles | 2026-07-16 | Author review; external review pending |
+| Microsoft Agent Governance Toolkit | 2026-07-17 | Public repository review; external confirmation pending |
+| ScopeBlind/Acta | 2026-07-17 | Public repository and interoperability review |
+| Credo AI | 2026-07-17 | Public product and Policy Pack documentation review |
 
 Part of the Governed Decision Intelligence research repository. Apache License 2.0.
