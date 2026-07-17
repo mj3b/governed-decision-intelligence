@@ -4,6 +4,34 @@ This repository uses a **governance-first change record**.
 
 ---
 
+## Unreleased — DEAS applicability boundary
+
+### Added
+
+- Decision Evidence Applicability Specification (DEAS) v0.2.0 as the canonical cross-regime working specification
+- Seven bounded determination states for evidence-to-requirement analysis
+- Explicit applicability, local-evidence, sufficiency-boundary, and non-equivalence fields
+- Adjacent-system boundaries against Microsoft Agent Governance Toolkit, ScopeBlind/Acta, and Credo AI
+- DEAS migration note preserving earlier DEPS links without preserving the portability claim
+
+### Changed
+
+- Renamed Decision Evidence Portability Specification (DEPS) to Decision Evidence Applicability Specification (DEAS)
+- Replaced the hypothesis that evidence can “travel” across regimes with a bounded claim about applicability, assurance use, local evidence conditions, insufficiency, and non-equivalence
+- Updated the GDI README, research claim register, framework mapping, related-work analysis, limitations, and working-specification status language
+- Clarified that runtime governors produce enforcement evidence, signed-receipt systems establish defined integrity properties, Credo AI provides policy-pack and control infrastructure, GDI records the decision, HIT evaluates practical human influence, and DEAS qualifies evidence use under a specified requirement
+
+### Deprecated
+
+- `working-specifications/decision-evidence-portability-v0.1.md` as a current specification; the file remains as a migration pointer
+- Unqualified claims that governance, controls, findings, evidence, or legal conclusions are portable across regimes
+
+### Research boundary
+
+DEAS is a working specification. Its schema, authoritative mappings, overlays, cases, reviewer protocol, and validation suite remain in development. The rename does not establish legal compliance, standards conformity, certification, admissibility, evidence sufficiency, or independent review.
+
+---
+
 ## v2.1.0 — Interoperability and examples expansion
 **Date:** April 2026
 
